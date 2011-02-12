@@ -1,0 +1,39 @@
+tessgzz (Tesseroids project) 1.0
+(local time) Sat Feb 12 20:15:14 2011
+
+Using GLQ orders: 2 lon / 2 lat / 2 r
+Reading tesseroid model from file model.txt
+Total of 14641 tesseroid(s) read
+Calculating gzz component (this may take a while)...
+Calculated on 25600 points in 989.18 seconds
+Done
+
+real	16m29.675s
+user	16m28.890s
+sys	0m0.340s
+tessgzz (Tesseroids project) 1.0
+(local time) Sat Feb 12 20:31:44 2011
+
+Using GLQ orders: 2 lon / 2 lat / 2 r
+Reading tesseroid model from file model.txt
+Total of 14641 tesseroid(s) read
+Calculating gzz component (this may take a while)...
+Calculated on 25600 points in 965.66 seconds
+Done
+
+real	16m8.647s
+user	16m4.820s
+sys	0m0.870s
+tessgzz (Tesseroids project) 1.0
+(local time) Sat Feb 12 20:47:53 2011
+
+Using GLQ orders: 2 lon / 2 lat / 2 r
+Reading tesseroid model from file model.txt
+Total of 14641 tesseroid(s) read
+Calculating gzz component (this may take a while)...
+Calculated on 25600 points in 987.28 seconds
+Done
+
+real	16m33.295s
+user	16m24.030s
+sys	0m3.290s
