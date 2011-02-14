@@ -1,6 +1,6 @@
 BINPATH = ../../../bin
 
-all: time_normal.txt time_adapt.txt
+all: time_normal.txt time_adapt.txt normal_o2_data.txt
 
 model.txt: 
 	@echo "\nGENERATING MODEL\n"
@@ -18,5 +18,7 @@ time_adapt.txt: time_adapt.sh model.txt grid.txt
 	@echo "\nTIMING ADAPTATIVE EXECUTION\n"
 	./$<
 
-clean:
-	rm *.log model.txt grid.txt normal_data.txt adapt_data.txt
+normal_o2_data.txt: normal_o2.sh
+	@echo "\nRUNNING NORMAL WITH ORDER 2\n"
+	./$<
+
