@@ -8,6 +8,7 @@ Tesseroids v1.0
 </title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/> 
 <link href="customdoxygen.css" rel="stylesheet" type="text/css"/>
+<link rel="shortcut icon" href="logo.ico"/>
 </head>
 
 <body>
@@ -100,6 +101,9 @@ A note about heights and units</a></h2>
 <p>In order to have a single convention, the word "height" means "height above the
 Earths surface" and are interpreted as positive up and negative down, ie. oriented with the z axis of the Local coordinate system.</p>
 <p>Also, all input units are in SI and decimal degrees. Output of tessg* programs are in mGal and Eotvos. All other output is also in SI and decimal degrees.</p>
+<h2><a class="anchor" id="help">
+Getting help information</a></h2>
+<p>All programs accept the -h and --version flags. -h will print a help message describing the usage, input and output formats and options accepted. --verbose prints version and license information about the program.</p>
 <h2><a class="anchor" id="tessg">
 Computing the gravitational effect of a tesseroid</a></h2>
 <p>The tessgx, tessgy, tessgz, tessgxx, etc. programs calculate the combined effect of a list of tesseroids on given computation points. The computation points are passed via standard input and do NOT have to be in a regular grid. This allows, for example, computation on points where data was measured. The values calulated are put in the last column of the input points and printed to standard output.</p>
@@ -127,9 +131,9 @@ Example:</a></h3>
 tessgz modelfile.txt -v -lgz.log -o3/3/3 &lt; points.txt &gt; gz_data.txt
 </pre></div><h3><a class="anchor" id="tess-adapt">
 The -a flag</a></h3>
-<p>The -a flag on tessg* programs enables the automatic re-sizing of tesseroids when it is needed to maintain the <a class="el" href="struct_g_l_q.html" title="Store the nodes and weights needed for a GLQ integration.">GLQ</a> precision desired. As a general rule, the tesseroid should be no bigger than it's distance from the computation point. Using this flag breaks the tesseroids automatically when this criterion is breached. This means that the computations can be performed with order 2/2/2 (default) which is much faster and still maintain correctness. <b>It is strongly recommended using this flag and 2/2/2 order always</b>.</p>
+<p>The -a flag on tessg* programs enables the automatic re-sizing of tesseroids when it is needed to maintain the <a class="el" href="struct_g_l_q.html" title="Store the nodes and weights needed for a GLQ integration.">GLQ</a> precision desired. As a general rule, the tesseroid should be no bigger than it's distance from the computation point. Using this flag breaks the tesseroids automatically when this criterion is breached. This means that the computations can be performed with order 2/2/2 (default) which is much faster and still maintain correctness. Some preliminary tests show that using the -a flag with order 2/2/2 is up to 5 times faster than increasing the <a class="el" href="struct_g_l_q.html" title="Store the nodes and weights needed for a GLQ integration.">GLQ</a> order. <b>It is strongly recommended using this flag and 2/2/2 order always</b>.</p>
 <h2><a class="anchor" id="verbose">
-Verbose and loggin to files</a></h2>
+Verbose and logging to files</a></h2>
 <p>The -v flag enables printing of information messages to stderr. If ommited, only error messages will appear.</p>
 <p>The -l flag enables logging of information and error messages to a file.</p>
 <h2><a class="anchor" id="comments">
@@ -143,7 +147,39 @@ Generating a regular grid</a></h2>
 Example</a></h3>
 <div class="fragment"><pre class="fragment">
 tessgrd -r-10/10/-10/10 -b100/100 -z250e03 -v &gt; points.txt
-</pre></div><h2><a class="anchor" id="pipe">
+</pre></div><h2><a class="anchor" id="modgen">
+Automated model generation</a></h2>
+<p>Tesseroids 1.0 includes a new program called "tessmodgen" for automatically generating a tesseroid model from a map of an interface. The interface can be any surface deviating from a reference level. For example, topography (a DEM) deviates from 0, a Moho map deviates from a mean crustal thickness, etc.</p>
+<p>This program takes as input a REGULAR grid with longitude, latitude and height values of the interface. Each tesseroid is generated with a grid point at the center of it's top face. The top and bottom faces of the tesseroid are defined as:</p>
+<ul>
+<li>Top = Interface and Bottom = Reference: if the interface is above the reference</li>
+<li>Top = Reference and Bottom = Interface: if the interface is bellow the reference</li>
+</ul>
+<p>The density <img class="formulaInl" alt="$ \rho $" src="form_27.png"/> of the tesseroids can be passed using the -d option. This will asign a density value of <img class="formulaInl" alt="$ \rho $" src="form_27.png"/> when the interface is above the reference and a value of <img class="formulaInl" alt="$ -\rho $" src="form_50.png"/> if the interface is bellow the reference.</p>
+<p>Alternatively, the density of each tesseroid can be passed as a forth column on the input grid. <b>As with the -d option, if the interface is bellow the reference, the density value will be multiplied by -1!</b> Also, an error will occur if both a forth column and the -d option are passed!</p>
+<h3><a class="anchor" id="modgen-ex">
+Example:</a></h3>
+<p>To generate a tesseroid model from a Digital Elevation Model (DEM) with <img class="formulaInl" alt="$ 1^\circ $" src="form_51.png"/> resolution using a density <img class="formulaInl" alt="$ \rho = 2.67\ g.cm^{-3} $" src="form_52.png"/>:</p>
+<div class="fragment"><pre class="fragment">
+tessmodgen -s1/1 -d2670 -z0 -v &lt; dem_file.txt &gt; dem_tess_model.txt
+</pre></div><h2><a class="anchor" id="mass">
+Calculating the total mass of a model</a></h2>
+<p>The tessmass program can be used to compute the total mass of a given tesseroid model. If desired, a density range can be given and only tesseroids that fall within the given range will be used in the calculation.</p>
+<h3><a class="anchor" id="mass-ex">
+Example:</a></h3>
+<p>To calculate the total mass of all tesseroids in "model.txt" with density between 0 and 1 g.cm^-3 :</p>
+<div class="fragment"><pre class="fragment">
+tessmass -r0/1000 &lt; model.txt
+</pre></div><h2><a class="anchor" id="prismg">
+Computing the gravitational effect of a rectangular prism</a></h2>
+<p>Tesseroids 1.0 also introduces programs to calculate the gravitational effect of rectangular prisms in Cartesian coordinates. This is done using the formulas of Nagy <em> et al.</em> (2000). The programs are name prismgx, prismgy, prismgz, prismgxx, etc.</p>
+<p>Input and output for these programs is very similar to that of the tessg* programs. Computation points are read from standard input and the prism model is read from a file. The model file should have the column format:</p>
+<div class="fragment"><pre class="fragment">
+X1 X2 Y1 Y2 Z1 Z2 DENSITY
+</pre></div><h3><a class="anchor" id="prism-coords">
+A note on the coordinate system</a></h3>
+<p>As in Nagy <em> et al.</em> (2000), the coordinate system for the rectangular prism calculations has X axis pointing North, Y axis pointing East and Z axis pointing <b>Down</b>. This is important to note because it differs from the convention adopted for the tesseroids. In practice, this means that the <img class="formulaInl" alt="$ g_{xz} $" src="form_53.png"/> and <img class="formulaInl" alt="$ g_{yz} $" src="form_54.png"/> components of the prism and tesseroid will have different signs. This will not be such for the <img class="formulaInl" alt="$ g_{z} $" src="form_55.png"/> component, though, because the convention for tesseroids is to have Z axis Down for this component only. See the <a class="el" href="userman-theory.html">Theoretical background</a> section for more details on this.</p>
+<h2><a class="anchor" id="pipe">
 Piping</a></h2>
 <p>Tesseroids was designed with the Unix filosophy in mind:</p>
 <div class="fragment"><pre class="fragment">
@@ -164,13 +200,18 @@ tessgyy model.txt -a | tessgyz model.txt -a | tessgzz model.txt -a &gt; output.t
 </pre></div><p>The result of this should look something like:</p>
 <div align="center">
 <img src="example.png" alt="example.png"/>
-</div>
-  
+<p><strong>Plot of columns in result file output.txt (values in mGal and Eotvos).</strong></p></div>
+<h2><a class="anchor" id="refs">
+References</a></h2>
+<ul>
+<li>Nagy, D., Papp, G., Benedek, J. [2000]. The gravitational potential and its derivatives for the prism. Journal of Geodesy, 74, 552–560.</li>
+</ul>
+ 
 </td>
 <td width="15%"></td>
 </table>
  </div>
 <hr class="footer"/><address style="text-align: right;"><small>
-Generated on Tue Feb 15 17:31:18 2011 for Tesseroids 1.0: User manual and API documentation by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3</small></address>
+Generated on Tue Feb 15 20:38:28 2011 for Tesseroids 1.0: User manual and API documentation by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3</small></address>
 </body>
 </html>
