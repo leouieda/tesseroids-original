@@ -88,21 +88,43 @@ window.onload = initDynSections;
 -->
 </script>
 <div class="contents">
-<h1>src/c/tessgz.c File Reference</h1>
-<p>Program to calculate gz of a tesseroid model on a set of points.  
+<h1>TODO.h File Reference</h1>
+<p>To do list.  
 <a href="#_details">More...</a></p>
-<code>#include &quot;<a class="el" href="grav__tess_8h_source.html">grav_tess.h</a>&quot;</code><br/>
-<code>#include &quot;<a class="el" href="tessg__main_8h_source.html">tessg_main.h</a>&quot;</code><br/>
+
+<p><a href="_t_o_d_o_8h_source.html">Go to the source code of this file.</a></p>
 <table border="0" cellpadding="0" cellspacing="0">
-<tr><td colspan="2"><h2>Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3c04138a5bfe5d72780bb7e82a18e627"></a><!-- doxytag: member="tessgz.c::main" ref="a3c04138a5bfe5d72780bb7e82a18e627" args="(int argc, char **argv)" -->
-int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="tessgz_8c.html#a3c04138a5bfe5d72780bb7e82a18e627">main</a> (int argc, char **argv)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Main. <br/></td></tr>
 </table>
 <hr/><a name="_details"></a><h2>Detailed Description</h2>
-<p>Program to calculate gz of a tesseroid model on a set of points. </p>
-<dl class="author"><dt><b>Author:</b></dt><dd>Leonardo Uieda </dd></dl>
-<dl class="date"><dt><b>Date:</b></dt><dd>02 Feb 2011 </dd></dl>
+<p>To do list. </p>
+<p>TESTS: </p>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000012">Todo:</a></b></dt><dd><p class="startdd">Error check for prism, sphere and tess (everton is doing) </p>
+<p>Check error in not rotating prism </p>
+<p>Check error os using tesseroid in poles</p>
+<p>Write about the speed test </p>
+<p>Write about model generator </p>
+<p class="enddd">Write about prismg* programs</p>
+</dd></dl>
+<p>PROGRAMS: </p>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000013">Todo:</a></b></dt><dd>Programs to calculate the effect of a sphere model in spherical coordinates</dd></dl>
+<p>API: </p>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000014">Todo:</a></b></dt><dd>Make minunit into functions and put variable arguments for messages like printf</dd></dl>
+<p>DOC: </p>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000015">Todo:</a></b></dt><dd>Make doxygen groups to separate programs from api </dd></dl>
+<p>MAYBE: </p>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000016">Todo:</a></b></dt><dd>Generate VTK file to plot tesseroids in Mayavi2 or Paraview</dd></dl>
+<p>DONE:</p>
+<ul>
+<li>(Done 27/Jan/2011) Include automatic documentation with doxygen</li>
+<li>(Done 28/Jan/2011) Make integration test to compare tess to sphere and prism to sphere</li>
+<li>(Done 02/Feb/2011) Move grid generation to a separate program</li>
+<li>(Done 08/Feb/2011) Programs to calculate the effect of a prism model in cartesian coordinates</li>
+<li>(Done 09/Feb/2011) Program to calculate the total mass of a model (with options for cut-off density values)</li>
+<li>(Done 09/Feb/2011) Program to generate tesseroid model from an regular grid</li>
+<li>(Done 09/Feb/2011) Program to print default values for constants</li>
+<li>(Done 10/Feb/2011) Fix local z axis positive upward. Change all depths when defining tesseroids to negative heights.</li>
+<li>(Done 11/Feb/2011) Adaptatively resize tesseroid when too close to computation point (with fixed <a class="el" href="struct_g_l_q.html" title="Store the nodes and weights needed for a GLQ integration.">GLQ</a> order) </li>
+</ul>
 </div>
 <hr class="footer"/><address style="text-align: right;"><small>
 Generated on Tue Feb 15 17:31:18 2011 for Tesseroids 1.0: User manual and API documentation by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3</small></address>

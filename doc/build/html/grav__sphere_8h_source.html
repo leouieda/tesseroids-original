@@ -21,7 +21,13 @@ Tesseroids v1.0
 
 <div class="supertabs">
     <ul class="tablist">
-        <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+        <li><a href="index.html"><span>Main&#160;Page</span></a>
+            <ul class="subtablist">
+                <li><a href="http://code.google.com/p/tesseroids"><span>Project site</span></a></li>
+                <li><a href="http://code.google.com/p/tesseroids/downloads/list"><span>Download</span></a></li>
+                <li><a href="http://www.gnu.org/licenses/gpl.html"><span>License</span></a></li>
+            </ul>
+        </li>
         <li><a href="userman.html"><span>User&#160;Manual</span></a>
             <ul class="subtablist">
                 <li><a href="userman-theory.html"><span>Theory</span></a></li>
@@ -34,6 +40,7 @@ Tesseroids v1.0
                 <li><a href="files.html"><span>Files</span></a></li>
                 <li><a href="annotated.html"><span>Data Structures</span></a></li>
                 <li><a href="globals_func.html"><span>Functions</span></a></li>
+                <li><a href="todo.html"><span>To do</span></a></li>
             </ul>
         </li>
     </ul>
@@ -97,44 +104,44 @@ window.onload = initDynSections;
 <a name="l00015"></a>00015 <span class="comment"> along with Tesseroids.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
 <a name="l00016"></a>00016 <span class="comment"> **************************************************************************** */</span>
 <a name="l00017"></a>00017 
-<a name="l00061"></a>00061 <span class="preprocessor">#ifndef _TESSEROIDS_GRAV_SPHERE_H_</span>
-<a name="l00062"></a>00062 <span class="preprocessor"></span><span class="preprocessor">#define _TESSEROIDS_GRAV_SPHERE_H_</span>
-<a name="l00063"></a>00063 <span class="preprocessor"></span>
-<a name="l00064"></a>00064 
-<a name="l00065"></a>00065 <span class="comment">/* Needed for definition of SPHERE */</span>
-<a name="l00066"></a>00066 <span class="preprocessor">#include &quot;<a class="code" href="utils_8h.html" title="Set of misc utilities and data structures.">utils.h</a>&quot;</span>
+<a name="l00060"></a>00060 <span class="preprocessor">#ifndef _TESSEROIDS_GRAV_SPHERE_H_</span>
+<a name="l00061"></a>00061 <span class="preprocessor"></span><span class="preprocessor">#define _TESSEROIDS_GRAV_SPHERE_H_</span>
+<a name="l00062"></a>00062 <span class="preprocessor"></span>
+<a name="l00063"></a>00063 
+<a name="l00064"></a>00064 <span class="comment">/* Needed for definition of SPHERE */</span>
+<a name="l00065"></a>00065 <span class="preprocessor">#include &quot;<a class="code" href="utils_8h.html" title="Set of misc utilities and data structures.">utils.h</a>&quot;</span>
+<a name="l00066"></a>00066 
 <a name="l00067"></a>00067 
-<a name="l00068"></a>00068 
-<a name="l00090"></a>00090 <span class="keyword">extern</span> <span class="keywordtype">double</span> <a class="code" href="grav__sphere_8c.html#ad2dd107890a8f37aa8ecfa2763f0eca2" title="Calculates gx caused by a sphere.">sphere_gx</a>(<a class="code" href="struct_s_p_h_e_r_e.html" title="Store information on a sphere.">SPHERE</a> sphere, <span class="keywordtype">double</span> lonp, <span class="keywordtype">double</span> latp, <span class="keywordtype">double</span> rp);
+<a name="l00089"></a>00089 <span class="keyword">extern</span> <span class="keywordtype">double</span> <a class="code" href="grav__sphere_8c.html#ad2dd107890a8f37aa8ecfa2763f0eca2" title="Calculates gx caused by a sphere.">sphere_gx</a>(<a class="code" href="struct_s_p_h_e_r_e.html" title="Store information on a sphere.">SPHERE</a> sphere, <span class="keywordtype">double</span> lonp, <span class="keywordtype">double</span> latp, <span class="keywordtype">double</span> rp);
+<a name="l00090"></a>00090 
 <a name="l00091"></a>00091 
-<a name="l00092"></a>00092 
-<a name="l00114"></a>00114 <span class="keyword">extern</span> <span class="keywordtype">double</span> <a class="code" href="grav__sphere_8c.html#a7ae7acf2cde7bf1ca0daddc78429ab14" title="Calculates gy caused by a sphere.">sphere_gy</a>(<a class="code" href="struct_s_p_h_e_r_e.html" title="Store information on a sphere.">SPHERE</a> sphere, <span class="keywordtype">double</span> lonp, <span class="keywordtype">double</span> latp, <span class="keywordtype">double</span> rp);
+<a name="l00113"></a>00113 <span class="keyword">extern</span> <span class="keywordtype">double</span> <a class="code" href="grav__sphere_8c.html#a7ae7acf2cde7bf1ca0daddc78429ab14" title="Calculates gy caused by a sphere.">sphere_gy</a>(<a class="code" href="struct_s_p_h_e_r_e.html" title="Store information on a sphere.">SPHERE</a> sphere, <span class="keywordtype">double</span> lonp, <span class="keywordtype">double</span> latp, <span class="keywordtype">double</span> rp);
+<a name="l00114"></a>00114 
 <a name="l00115"></a>00115 
-<a name="l00116"></a>00116 
-<a name="l00138"></a>00138 <span class="keyword">extern</span> <span class="keywordtype">double</span> <a class="code" href="grav__sphere_8c.html#a2a7f78e6bb25f96a5996015642e10232" title="Calculates gz caused by a sphere.">sphere_gz</a>(<a class="code" href="struct_s_p_h_e_r_e.html" title="Store information on a sphere.">SPHERE</a> sphere, <span class="keywordtype">double</span> lonp, <span class="keywordtype">double</span> latp, <span class="keywordtype">double</span> rp);
+<a name="l00137"></a>00137 <span class="keyword">extern</span> <span class="keywordtype">double</span> <a class="code" href="grav__sphere_8c.html#a2a7f78e6bb25f96a5996015642e10232" title="Calculates gz caused by a sphere.">sphere_gz</a>(<a class="code" href="struct_s_p_h_e_r_e.html" title="Store information on a sphere.">SPHERE</a> sphere, <span class="keywordtype">double</span> lonp, <span class="keywordtype">double</span> latp, <span class="keywordtype">double</span> rp);
+<a name="l00138"></a>00138 
 <a name="l00139"></a>00139 
-<a name="l00140"></a>00140 
-<a name="l00161"></a>00161 <span class="keyword">extern</span> <span class="keywordtype">double</span> <a class="code" href="grav__sphere_8c.html#ab665efc174050fe2f58864680c424116" title="Calculates gxx caused by a sphere.">sphere_gxx</a>(<a class="code" href="struct_s_p_h_e_r_e.html" title="Store information on a sphere.">SPHERE</a> sphere, <span class="keywordtype">double</span> lonp, <span class="keywordtype">double</span> latp, <span class="keywordtype">double</span> rp);
+<a name="l00160"></a>00160 <span class="keyword">extern</span> <span class="keywordtype">double</span> <a class="code" href="grav__sphere_8c.html#ab665efc174050fe2f58864680c424116" title="Calculates gxx caused by a sphere.">sphere_gxx</a>(<a class="code" href="struct_s_p_h_e_r_e.html" title="Store information on a sphere.">SPHERE</a> sphere, <span class="keywordtype">double</span> lonp, <span class="keywordtype">double</span> latp, <span class="keywordtype">double</span> rp);
+<a name="l00161"></a>00161 
 <a name="l00162"></a>00162 
-<a name="l00163"></a>00163 
-<a name="l00185"></a>00185 <span class="keyword">extern</span> <span class="keywordtype">double</span> <a class="code" href="grav__sphere_8c.html#a853b8d6a65da9f455fcf53f9d8915f32" title="Calculates gxy caused by a sphere.">sphere_gxy</a>(<a class="code" href="struct_s_p_h_e_r_e.html" title="Store information on a sphere.">SPHERE</a> sphere, <span class="keywordtype">double</span> lonp, <span class="keywordtype">double</span> latp, <span class="keywordtype">double</span> rp);
+<a name="l00184"></a>00184 <span class="keyword">extern</span> <span class="keywordtype">double</span> <a class="code" href="grav__sphere_8c.html#a853b8d6a65da9f455fcf53f9d8915f32" title="Calculates gxy caused by a sphere.">sphere_gxy</a>(<a class="code" href="struct_s_p_h_e_r_e.html" title="Store information on a sphere.">SPHERE</a> sphere, <span class="keywordtype">double</span> lonp, <span class="keywordtype">double</span> latp, <span class="keywordtype">double</span> rp);
+<a name="l00185"></a>00185 
 <a name="l00186"></a>00186 
-<a name="l00187"></a>00187 
-<a name="l00209"></a>00209 <span class="keyword">extern</span> <span class="keywordtype">double</span> <a class="code" href="grav__sphere_8c.html#a2d186ee58e2070c210ea2151fd36a6aa" title="Calculates gxz caused by a sphere.">sphere_gxz</a>(<a class="code" href="struct_s_p_h_e_r_e.html" title="Store information on a sphere.">SPHERE</a> sphere, <span class="keywordtype">double</span> lonp, <span class="keywordtype">double</span> latp, <span class="keywordtype">double</span> rp);
+<a name="l00208"></a>00208 <span class="keyword">extern</span> <span class="keywordtype">double</span> <a class="code" href="grav__sphere_8c.html#a2d186ee58e2070c210ea2151fd36a6aa" title="Calculates gxz caused by a sphere.">sphere_gxz</a>(<a class="code" href="struct_s_p_h_e_r_e.html" title="Store information on a sphere.">SPHERE</a> sphere, <span class="keywordtype">double</span> lonp, <span class="keywordtype">double</span> latp, <span class="keywordtype">double</span> rp);
+<a name="l00209"></a>00209 
 <a name="l00210"></a>00210 
-<a name="l00211"></a>00211 
-<a name="l00233"></a>00233 <span class="keyword">extern</span> <span class="keywordtype">double</span> <a class="code" href="grav__sphere_8c.html#a9593a1fc8c7159b5d718925e1cfb3d84" title="Calculates gyy caused by a sphere.">sphere_gyy</a>(<a class="code" href="struct_s_p_h_e_r_e.html" title="Store information on a sphere.">SPHERE</a> sphere, <span class="keywordtype">double</span> lonp, <span class="keywordtype">double</span> latp, <span class="keywordtype">double</span> rp);
+<a name="l00232"></a>00232 <span class="keyword">extern</span> <span class="keywordtype">double</span> <a class="code" href="grav__sphere_8c.html#a9593a1fc8c7159b5d718925e1cfb3d84" title="Calculates gyy caused by a sphere.">sphere_gyy</a>(<a class="code" href="struct_s_p_h_e_r_e.html" title="Store information on a sphere.">SPHERE</a> sphere, <span class="keywordtype">double</span> lonp, <span class="keywordtype">double</span> latp, <span class="keywordtype">double</span> rp);
+<a name="l00233"></a>00233 
 <a name="l00234"></a>00234 
-<a name="l00235"></a>00235 
-<a name="l00257"></a>00257 <span class="keyword">extern</span> <span class="keywordtype">double</span> <a class="code" href="grav__sphere_8c.html#a6a55511cc46d232e91c4db87aba86fb9" title="Calculates gyz caused by a sphere.">sphere_gyz</a>(<a class="code" href="struct_s_p_h_e_r_e.html" title="Store information on a sphere.">SPHERE</a> sphere, <span class="keywordtype">double</span> lonp, <span class="keywordtype">double</span> latp, <span class="keywordtype">double</span> rp);
+<a name="l00256"></a>00256 <span class="keyword">extern</span> <span class="keywordtype">double</span> <a class="code" href="grav__sphere_8c.html#a6a55511cc46d232e91c4db87aba86fb9" title="Calculates gyz caused by a sphere.">sphere_gyz</a>(<a class="code" href="struct_s_p_h_e_r_e.html" title="Store information on a sphere.">SPHERE</a> sphere, <span class="keywordtype">double</span> lonp, <span class="keywordtype">double</span> latp, <span class="keywordtype">double</span> rp);
+<a name="l00257"></a>00257 
 <a name="l00258"></a>00258 
-<a name="l00259"></a>00259 
-<a name="l00280"></a>00280 <span class="keyword">extern</span> <span class="keywordtype">double</span> <a class="code" href="grav__sphere_8c.html#ae27644fe5da4c9f9f653440d7d4832e4" title="Calculates gzz caused by a sphere.">sphere_gzz</a>(<a class="code" href="struct_s_p_h_e_r_e.html" title="Store information on a sphere.">SPHERE</a> sphere, <span class="keywordtype">double</span> lonp, <span class="keywordtype">double</span> latp, <span class="keywordtype">double</span> rp);
+<a name="l00279"></a>00279 <span class="keyword">extern</span> <span class="keywordtype">double</span> <a class="code" href="grav__sphere_8c.html#ae27644fe5da4c9f9f653440d7d4832e4" title="Calculates gzz caused by a sphere.">sphere_gzz</a>(<a class="code" href="struct_s_p_h_e_r_e.html" title="Store information on a sphere.">SPHERE</a> sphere, <span class="keywordtype">double</span> lonp, <span class="keywordtype">double</span> latp, <span class="keywordtype">double</span> rp);
+<a name="l00280"></a>00280 
 <a name="l00281"></a>00281 
-<a name="l00282"></a>00282 
-<a name="l00283"></a>00283 <span class="preprocessor">#endif</span>
+<a name="l00282"></a>00282 <span class="preprocessor">#endif</span>
 </pre></div></div>
 <hr class="footer"/><address style="text-align: right;"><small>
-Generated on Tue Feb 15 00:19:04 2011 for Tesseroids 1.0: User manual and API documentation by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3</small></address>
+Generated on Tue Feb 15 17:31:18 2011 for Tesseroids 1.0: User manual and API documentation by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3</small></address>
 </body>
 </html>

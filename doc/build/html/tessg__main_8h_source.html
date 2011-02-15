@@ -21,7 +21,13 @@ Tesseroids v1.0
 
 <div class="supertabs">
     <ul class="tablist">
-        <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+        <li><a href="index.html"><span>Main&#160;Page</span></a>
+            <ul class="subtablist">
+                <li><a href="http://code.google.com/p/tesseroids"><span>Project site</span></a></li>
+                <li><a href="http://code.google.com/p/tesseroids/downloads/list"><span>Download</span></a></li>
+                <li><a href="http://www.gnu.org/licenses/gpl.html"><span>License</span></a></li>
+            </ul>
+        </li>
         <li><a href="userman.html"><span>User&#160;Manual</span></a>
             <ul class="subtablist">
                 <li><a href="userman-theory.html"><span>Theory</span></a></li>
@@ -34,6 +40,7 @@ Tesseroids v1.0
                 <li><a href="files.html"><span>Files</span></a></li>
                 <li><a href="annotated.html"><span>Data Structures</span></a></li>
                 <li><a href="globals_func.html"><span>Functions</span></a></li>
+                <li><a href="todo.html"><span>To do</span></a></li>
             </ul>
         </li>
     </ul>
@@ -97,21 +104,21 @@ window.onload = initDynSections;
 <a name="l00015"></a>00015 <span class="comment">along with Tesseroids.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
 <a name="l00016"></a>00016 <span class="comment">***************************************************************************** */</span>
 <a name="l00017"></a>00017 
-<a name="l00026"></a>00026 <span class="preprocessor">#ifndef _TESSEROIDS_TESSG_MAIN_H_</span>
-<a name="l00027"></a>00027 <span class="preprocessor"></span><span class="preprocessor">#define _TESSEROIDS_TESSG_MAIN_H_</span>
-<a name="l00028"></a>00028 <span class="preprocessor"></span>
-<a name="l00029"></a>00029 
-<a name="l00030"></a>00030 <span class="comment">/* For the definitions of GLQ and TESSEROID */</span>
-<a name="l00031"></a>00031 <span class="preprocessor">#include &quot;<a class="code" href="glq_8h.html" title="Functions for implementing a Gauss-Legendre Quadrature numerical integration.">glq.h</a>&quot;</span>
-<a name="l00032"></a>00032 <span class="preprocessor">#include &quot;<a class="code" href="utils_8h.html" title="Set of misc utilities and data structures.">utils.h</a>&quot;</span>
-<a name="l00033"></a>00033 
-<a name="l00034"></a>00034 
-<a name="l00044"></a>00044 <span class="keyword">extern</span> <span class="keywordtype">int</span> <a class="code" href="tessg__main_8c.html#abab8482fe7dd3888b39a61b28efaaa72" title="Run the main for a generic tessg* program.">run_tessg_main</a>(<span class="keywordtype">int</span> argc, <span class="keywordtype">char</span> **argv, <span class="keyword">const</span> <span class="keywordtype">char</span> *progname,
-<a name="l00045"></a>00045    <span class="keywordtype">double</span> (*field)(<a class="code" href="struct_t_e_s_s_e_r_o_i_d.html" title="Store information on a tesseroid.">TESSEROID</a>, <span class="keywordtype">double</span>, <span class="keywordtype">double</span>, <span class="keywordtype">double</span>, <a class="code" href="struct_g_l_q.html" title="Store the nodes and weights needed for a GLQ integration.">GLQ</a>, <a class="code" href="struct_g_l_q.html" title="Store the nodes and weights needed for a GLQ integration.">GLQ</a>, <a class="code" href="struct_g_l_q.html" title="Store the nodes and weights needed for a GLQ integration.">GLQ</a>));
-<a name="l00046"></a>00046 
-<a name="l00047"></a>00047 <span class="preprocessor">#endif</span>
+<a name="l00028"></a>00028 <span class="preprocessor">#ifndef _TESSEROIDS_TESSG_MAIN_H_</span>
+<a name="l00029"></a>00029 <span class="preprocessor"></span><span class="preprocessor">#define _TESSEROIDS_TESSG_MAIN_H_</span>
+<a name="l00030"></a>00030 <span class="preprocessor"></span>
+<a name="l00031"></a>00031 
+<a name="l00032"></a>00032 <span class="comment">/* For the definitions of GLQ and TESSEROID */</span>
+<a name="l00033"></a>00033 <span class="preprocessor">#include &quot;<a class="code" href="glq_8h.html" title="Functions for implementing a Gauss-Legendre Quadrature numerical integration.">glq.h</a>&quot;</span>
+<a name="l00034"></a>00034 <span class="preprocessor">#include &quot;<a class="code" href="utils_8h.html" title="Set of misc utilities and data structures.">utils.h</a>&quot;</span>
+<a name="l00035"></a>00035 
+<a name="l00036"></a>00036 
+<a name="l00046"></a>00046 <span class="keyword">extern</span> <span class="keywordtype">int</span> <a class="code" href="tessg__main_8c.html#abab8482fe7dd3888b39a61b28efaaa72" title="Run the main for a generic tessg* program.">run_tessg_main</a>(<span class="keywordtype">int</span> argc, <span class="keywordtype">char</span> **argv, <span class="keyword">const</span> <span class="keywordtype">char</span> *progname,
+<a name="l00047"></a>00047    <span class="keywordtype">double</span> (*field)(<a class="code" href="struct_t_e_s_s_e_r_o_i_d.html" title="Store information on a tesseroid.">TESSEROID</a>, <span class="keywordtype">double</span>, <span class="keywordtype">double</span>, <span class="keywordtype">double</span>, <a class="code" href="struct_g_l_q.html" title="Store the nodes and weights needed for a GLQ integration.">GLQ</a>, <a class="code" href="struct_g_l_q.html" title="Store the nodes and weights needed for a GLQ integration.">GLQ</a>, <a class="code" href="struct_g_l_q.html" title="Store the nodes and weights needed for a GLQ integration.">GLQ</a>));
+<a name="l00048"></a>00048 
+<a name="l00049"></a>00049 <span class="preprocessor">#endif</span>
 </pre></div></div>
 <hr class="footer"/><address style="text-align: right;"><small>
-Generated on Tue Feb 15 00:19:04 2011 for Tesseroids 1.0: User manual and API documentation by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3</small></address>
+Generated on Tue Feb 15 17:31:18 2011 for Tesseroids 1.0: User manual and API documentation by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3</small></address>
 </body>
 </html>

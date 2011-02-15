@@ -21,7 +21,13 @@ Tesseroids v1.0
 
 <div class="supertabs">
     <ul class="tablist">
-        <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+        <li><a href="index.html"><span>Main&#160;Page</span></a>
+            <ul class="subtablist">
+                <li><a href="http://code.google.com/p/tesseroids"><span>Project site</span></a></li>
+                <li><a href="http://code.google.com/p/tesseroids/downloads/list"><span>Download</span></a></li>
+                <li><a href="http://www.gnu.org/licenses/gpl.html"><span>License</span></a></li>
+            </ul>
+        </li>
         <li><a href="userman.html"><span>User&#160;Manual</span></a>
             <ul class="subtablist">
                 <li><a href="userman-theory.html"><span>Theory</span></a></li>
@@ -34,6 +40,7 @@ Tesseroids v1.0
                 <li><a href="files.html"><span>Files</span></a></li>
                 <li><a href="annotated.html"><span>Data Structures</span></a></li>
                 <li><a href="globals_func.html"><span>Functions</span></a></li>
+                <li><a href="todo.html"><span>To do</span></a></li>
             </ul>
         </li>
     </ul>
@@ -83,54 +90,100 @@ window.onload = initDynSections;
 <div class="contents">
 
 
-<h1><a class="anchor" id="todo">Todo List </a></h1><p><a class="anchor" id="_todo000007"></a> </p>
+<h1><a class="anchor" id="todo">Todo List </a></h1><p><a class="anchor" id="_todo000010"></a> </p>
 <dl>
 <dt>Global <a class="el" href="utils_8h.html#ac88c8a5435c39bf6ee5a9b9544ab8e1f">gets_prism</a> (const char *str, <a class="el" href="struct_p_r_i_s_m.html" title="Store information on a rectangular prism.">PRISM</a> *prism) </dt>
-<dd>Read the position of the prism from the string Not caring if there are more chars in the line so that can read output of tess2prism </dd>
+<dd><p class="startdd">Catch wrong order of model inputs, ie. x1 &gt; x2 etc </p>
+<p class="enddd">Read the position of the prism from the string </p>
+</dd>
+</dl>
+<p><a class="anchor" id="_todo000009"></a> </p>
+<dl>
+<dt>Global <a class="el" href="utils_8h.html#a9b18a99b73ac3d5380034871da8a6279">gets_tess</a> (const char *str, <a class="el" href="struct_t_e_s_s_e_r_o_i_d.html" title="Store information on a tesseroid.">TESSEROID</a> *tess) </dt>
+<dd>Catch wrong order of model inputs, ie. w &gt; e or s &gt; n or top &lt; bottom </dd>
+</dl>
+<p><a class="anchor" id="_todo000001"></a> </p>
+<dl>
+<dt>File <a class="el" href="glq_8h.html">glq.h</a>  </dt>
+<dd><p class="startdd">Put reference for formulas</p>
+<p class="enddd"></p>
+</dd>
 </dl>
 <p><a class="anchor" id="_todo000002"></a> </p>
 <dl>
-<dt>File <a class="el" href="grav__sphere_8h.html">grav_sphere.h</a>  </dt>
-<dd><p class="startdd">Replace sphere.rc with a local copy to clear syntax and see if speeds up </p>
-<p>Put reference for formulas</p>
+<dt>File <a class="el" href="grav__prism_8h.html">grav_prism.h</a>  </dt>
+<dd><p class="startdd">Include formulas in function descriptions </p>
+<p>Put reference for formulas </p>
+<p>Unroll loops in gx and gy</p>
 <p class="enddd"></p>
 </dd>
 </dl>
 <p><a class="anchor" id="_todo000003"></a> </p>
 <dl>
-<dt>File <a class="el" href="grav__tess_8c.html">grav_tess.c</a>  </dt>
-<dd><p class="startdd">Possible speed up, use pointers for weights and nodes</p>
+<dt>File <a class="el" href="grav__sphere_8h.html">grav_sphere.h</a>  </dt>
+<dd><p class="startdd">Possible speedup: Replace sphere.rc with a local copy </p>
+<p>Put reference for formulas</p>
 <p class="enddd"></p>
 </dd>
-</dl>
-<p><a class="anchor" id="_todo000001"></a> </p>
-<dl>
-<dt>Global <a class="el" href="cmd_8h.html#ab47b541f015283e5216310a54dd881d5">parse_tessgrd_args</a> (int argc, char **argv, <a class="el" href="struct_t_e_s_s_g_r_d___a_r_g_s.html" title="Store input arguments and option flags for tessgrd program.">TESSGRD_ARGS</a> *args) </dt>
-<dd><p class="startdd">Catch wrong order of -r, ie w&gt;e</p>
-<p class="enddd"></p>
-</dd>
-</dl>
-<p><a class="anchor" id="_todo000006"></a> </p>
-<dl>
-<dt>Global <a class="el" href="utils_8h.html#ad9fc3a0b19ab3bda6d3f2940efe2abbb">tess2sphere</a> (<a class="el" href="struct_t_e_s_s_e_r_o_i_d.html" title="Store information on a tesseroid.">TESSEROID</a> tess, <a class="el" href="struct_s_p_h_e_r_e.html" title="Store information on a sphere.">SPHERE</a> *sphere) </dt>
-<dd>Put sphere in center of mass, not geometrical center </dd>
 </dl>
 <p><a class="anchor" id="_todo000004"></a> </p>
 <dl>
-<dt>File <a class="el" href="tessg__main_8c.html">tessg_main.c</a>  </dt>
-<dd><p class="startdd">Doesn't catch errors in input points at the end of the line</p>
+<dt>File <a class="el" href="grav__tess_8h.html">grav_tess.h</a>  </dt>
+<dd><p class="startdd">Possible speed up: use pointers for weights and nodes </p>
+<p>Put reference for formulas </p>
+<p>Allow for tesseroids with depth varying density</p>
 <p class="enddd"></p>
 </dd>
 </dl>
 <p><a class="anchor" id="_todo000005"></a> </p>
 <dl>
-<dt>File <a class="el" href="utils_8c.html">utils.c</a>  </dt>
-<dd><p class="startdd">Make functions that calculate the center of mass</p>
+<dt>File <a class="el" href="prismg__main_8h.html">prismg_main.h</a>  </dt>
+<dd><p class="startdd">Option for calculating on spherical coordinates </p>
+<p>Catch errors in input points that occur at the end of the line</p>
+<p class="enddd"></p>
+</dd>
+</dl>
+<p><a class="anchor" id="_todo000008"></a> </p>
+<dl>
+<dt>Global <a class="el" href="utils_8h.html#a8a670e89ac121dfc5661cba9e25a961a">tess2prism</a> (<a class="el" href="struct_t_e_s_s_e_r_o_i_d.html" title="Store information on a tesseroid.">TESSEROID</a> tess, <a class="el" href="struct_p_r_i_s_m.html" title="Store information on a rectangular prism.">PRISM</a> *prism) </dt>
+<dd>Put reference for formulas </dd>
+</dl>
+<p><a class="anchor" id="_todo000006"></a> </p>
+<dl>
+<dt>File <a class="el" href="tessg__main_8h.html">tessg_main.h</a>  </dt>
+<dd><p class="startdd">Catch errors in input points that occur at the end of the line</p>
+<p class="enddd"></p>
+</dd>
+</dl>
+<p><a class="anchor" id="_todo000007"></a> </p>
+<dl>
+<dt>File <a class="el" href="tessgrd_8c.html">tessgrd.c</a>  </dt>
+<dd><p class="startdd">Catch wrong order of -r arguments ie. w &gt; e or s &gt; n</p>
+<p class="enddd"></p>
+</dd>
+</dl>
+<p><a class="anchor" id="_todo000012"></a> </p>
+<dl>
+<dt>File <a class="el" href="_t_o_d_o_8h.html">TODO.h</a>  </dt>
+<dd><p class="startdd">Error check for prism, sphere and tess (everton is doing) </p>
+<p>Check error in not rotating prism </p>
+<p>Check error os using tesseroid in poles</p>
+<p></p>
+<p>Write about the speed test </p>
+<p>Write about model generator </p>
+<p>Write about prismg* programs</p>
+<p></p>
+<p>Programs to calculate the effect of a sphere model in spherical coordinates</p>
+<p></p>
+<p>Make minunit into functions and put variable arguments for messages like printf</p>
+<p></p>
+<p>Make doxygen groups to separate programs from api </p>
+<p>Generate VTK file to plot tesseroids in Mayavi2 or Paraview</p>
 <p class="enddd"></p>
 </dd>
 </dl>
 </div>
 <hr class="footer"/><address style="text-align: right;"><small>
-Generated on Tue Feb 15 00:19:04 2011 for Tesseroids 1.0: User manual and API documentation by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3</small></address>
+Generated on Tue Feb 15 17:31:18 2011 for Tesseroids 1.0: User manual and API documentation by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3</small></address>
 </body>
 </html>

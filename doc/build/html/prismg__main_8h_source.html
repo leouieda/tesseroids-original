@@ -21,7 +21,13 @@ Tesseroids v1.0
 
 <div class="supertabs">
     <ul class="tablist">
-        <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+        <li><a href="index.html"><span>Main&#160;Page</span></a>
+            <ul class="subtablist">
+                <li><a href="http://code.google.com/p/tesseroids"><span>Project site</span></a></li>
+                <li><a href="http://code.google.com/p/tesseroids/downloads/list"><span>Download</span></a></li>
+                <li><a href="http://www.gnu.org/licenses/gpl.html"><span>License</span></a></li>
+            </ul>
+        </li>
         <li><a href="userman.html"><span>User&#160;Manual</span></a>
             <ul class="subtablist">
                 <li><a href="userman-theory.html"><span>Theory</span></a></li>
@@ -34,6 +40,7 @@ Tesseroids v1.0
                 <li><a href="files.html"><span>Files</span></a></li>
                 <li><a href="annotated.html"><span>Data Structures</span></a></li>
                 <li><a href="globals_func.html"><span>Functions</span></a></li>
+                <li><a href="todo.html"><span>To do</span></a></li>
             </ul>
         </li>
     </ul>
@@ -97,23 +104,23 @@ window.onload = initDynSections;
 <a name="l00015"></a>00015 <span class="comment">along with Tesseroids.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
 <a name="l00016"></a>00016 <span class="comment">***************************************************************************** */</span>
 <a name="l00017"></a>00017 
-<a name="l00026"></a>00026 <span class="preprocessor">#ifndef _TESSEROIDS_PRISMG_MAIN_H_</span>
-<a name="l00027"></a>00027 <span class="preprocessor"></span><span class="preprocessor">#define _TESSEROIDS_PRISMG_MAIN_H_</span>
-<a name="l00028"></a>00028 <span class="preprocessor"></span>
-<a name="l00029"></a>00029 
-<a name="l00030"></a>00030 <span class="comment">/* For the definitions of PRISM */</span>
-<a name="l00031"></a>00031 <span class="preprocessor">#include &quot;<a class="code" href="utils_8h.html" title="Set of misc utilities and data structures.">utils.h</a>&quot;</span>
+<a name="l00029"></a>00029 <span class="preprocessor">#ifndef _TESSEROIDS_PRISMG_MAIN_H_</span>
+<a name="l00030"></a>00030 <span class="preprocessor"></span><span class="preprocessor">#define _TESSEROIDS_PRISMG_MAIN_H_</span>
+<a name="l00031"></a>00031 <span class="preprocessor"></span>
 <a name="l00032"></a>00032 
-<a name="l00033"></a>00033 
-<a name="l00036"></a>00036 <span class="keyword">extern</span> <span class="keywordtype">void</span> <a class="code" href="prismg__main_8c.html#a853216ac51aa181669ff4d3de74058a7" title="Print the help message.">print_help</a>();
-<a name="l00037"></a>00037 
-<a name="l00038"></a>00038 
-<a name="l00048"></a>00048 <span class="keyword">extern</span> <span class="keywordtype">int</span> <a class="code" href="prismg__main_8c.html#a5bc6b7970b650b0bf65f53ee89263fd8" title="Run the main for a generic prismg* program.">run_prismg_main</a>(<span class="keywordtype">int</span> argc, <span class="keywordtype">char</span> **argv, <span class="keyword">const</span> <span class="keywordtype">char</span> *progname,
-<a name="l00049"></a>00049                            <span class="keywordtype">double</span> (*field)(<a class="code" href="struct_p_r_i_s_m.html" title="Store information on a rectangular prism.">PRISM</a>, <span class="keywordtype">double</span>, <span class="keywordtype">double</span>, <span class="keywordtype">double</span>));
-<a name="l00050"></a>00050 
-<a name="l00051"></a>00051 <span class="preprocessor">#endif</span>
+<a name="l00033"></a>00033 <span class="comment">/* For the definitions of PRISM */</span>
+<a name="l00034"></a>00034 <span class="preprocessor">#include &quot;<a class="code" href="utils_8h.html" title="Set of misc utilities and data structures.">utils.h</a>&quot;</span>
+<a name="l00035"></a>00035 
+<a name="l00036"></a>00036 
+<a name="l00039"></a>00039 <span class="keyword">extern</span> <span class="keywordtype">void</span> <a class="code" href="prismg__main_8c.html#a853216ac51aa181669ff4d3de74058a7" title="Print the help message.">print_help</a>();
+<a name="l00040"></a>00040 
+<a name="l00041"></a>00041 
+<a name="l00051"></a>00051 <span class="keyword">extern</span> <span class="keywordtype">int</span> <a class="code" href="prismg__main_8c.html#a5bc6b7970b650b0bf65f53ee89263fd8" title="Run the main for a generic prismg* program.">run_prismg_main</a>(<span class="keywordtype">int</span> argc, <span class="keywordtype">char</span> **argv, <span class="keyword">const</span> <span class="keywordtype">char</span> *progname,
+<a name="l00052"></a>00052                            <span class="keywordtype">double</span> (*field)(<a class="code" href="struct_p_r_i_s_m.html" title="Store information on a rectangular prism.">PRISM</a>, <span class="keywordtype">double</span>, <span class="keywordtype">double</span>, <span class="keywordtype">double</span>));
+<a name="l00053"></a>00053 
+<a name="l00054"></a>00054 <span class="preprocessor">#endif</span>
 </pre></div></div>
 <hr class="footer"/><address style="text-align: right;"><small>
-Generated on Tue Feb 15 00:19:04 2011 for Tesseroids 1.0: User manual and API documentation by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3</small></address>
+Generated on Tue Feb 15 17:31:18 2011 for Tesseroids 1.0: User manual and API documentation by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3</small></address>
 </body>
 </html>

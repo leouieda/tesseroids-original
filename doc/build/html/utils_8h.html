@@ -21,7 +21,13 @@ Tesseroids v1.0
 
 <div class="supertabs">
     <ul class="tablist">
-        <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+        <li><a href="index.html"><span>Main&#160;Page</span></a>
+            <ul class="subtablist">
+                <li><a href="http://code.google.com/p/tesseroids"><span>Project site</span></a></li>
+                <li><a href="http://code.google.com/p/tesseroids/downloads/list"><span>Download</span></a></li>
+                <li><a href="http://www.gnu.org/licenses/gpl.html"><span>License</span></a></li>
+            </ul>
+        </li>
         <li><a href="userman.html"><span>User&#160;Manual</span></a>
             <ul class="subtablist">
                 <li><a href="userman-theory.html"><span>Theory</span></a></li>
@@ -34,6 +40,7 @@ Tesseroids v1.0
                 <li><a href="files.html"><span>Files</span></a></li>
                 <li><a href="annotated.html"><span>Data Structures</span></a></li>
                 <li><a href="globals_func.html"><span>Functions</span></a></li>
+                <li><a href="todo.html"><span>To do</span></a></li>
             </ul>
         </li>
     </ul>
@@ -166,7 +173,8 @@ window.onload = initDynSections;
 </dl>
 <dl class="return"><dt><b>Returns:</b></dt><dd>0 if all went well, 1 if failed to read. </dd></dl>
 
-<p><dl class="todo"><dt><b><a class="el" href="todo.html#_todo000007">Todo:</a></b></dt><dd>Read the position of the prism from the string Not caring if there are more chars in the line so that can read output of tess2prism </dd></dl>
+<p><dl class="todo"><dt><b><a class="el" href="todo.html#_todo000010">Todo:</a></b></dt><dd>Catch wrong order of model inputs, ie. x1 &gt; x2 etc </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000011">Todo:</a></b></dt><dd>Read the position of the prism from the string </dd></dl>
 </p>
 
 </div>
@@ -205,6 +213,9 @@ window.onload = initDynSections;
   </dd>
 </dl>
 <dl class="return"><dt><b>Returns:</b></dt><dd>0 if all went well, 1 if failed to read. </dd></dl>
+
+<p><dl class="todo"><dt><b><a class="el" href="todo.html#_todo000009">Todo:</a></b></dt><dd>Catch wrong order of model inputs, ie. w &gt; e or s &gt; n or top &lt; bottom </dd></dl>
+</p>
 
 </div>
 </div>
@@ -493,6 +504,9 @@ window.onload = initDynSections;
   </dd>
 </dl>
 
+<p><dl class="todo"><dt><b><a class="el" href="todo.html#_todo000008">Todo:</a></b></dt><dd>Put reference for formulas </dd></dl>
+</p>
+
 </div>
 </div>
 <a class="anchor" id="ad9fc3a0b19ab3bda6d3f2940efe2abbb"></a><!-- doxytag: member="utils.h::tess2sphere" ref="ad9fc3a0b19ab3bda6d3f2940efe2abbb" args="(TESSEROID tess, SPHERE *sphere)" -->
@@ -529,9 +543,6 @@ window.onload = initDynSections;
   </table>
   </dd>
 </dl>
-
-<p><dl class="todo"><dt><b><a class="el" href="todo.html#_todo000006">Todo:</a></b></dt><dd>Put sphere in center of mass, not geometrical center </dd></dl>
-</p>
 
 </div>
 </div>
@@ -654,6 +665,6 @@ window.onload = initDynSections;
 </div>
 </div>
 <hr class="footer"/><address style="text-align: right;"><small>
-Generated on Tue Feb 15 00:19:04 2011 for Tesseroids 1.0: User manual and API documentation by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3</small></address>
+Generated on Tue Feb 15 17:31:18 2011 for Tesseroids 1.0: User manual and API documentation by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3</small></address>
 </body>
 </html>

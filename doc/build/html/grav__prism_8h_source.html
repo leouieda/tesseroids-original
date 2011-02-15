@@ -21,7 +21,13 @@ Tesseroids v1.0
 
 <div class="supertabs">
     <ul class="tablist">
-        <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+        <li><a href="index.html"><span>Main&#160;Page</span></a>
+            <ul class="subtablist">
+                <li><a href="http://code.google.com/p/tesseroids"><span>Project site</span></a></li>
+                <li><a href="http://code.google.com/p/tesseroids/downloads/list"><span>Download</span></a></li>
+                <li><a href="http://www.gnu.org/licenses/gpl.html"><span>License</span></a></li>
+            </ul>
+        </li>
         <li><a href="userman.html"><span>User&#160;Manual</span></a>
             <ul class="subtablist">
                 <li><a href="userman-theory.html"><span>Theory</span></a></li>
@@ -34,6 +40,7 @@ Tesseroids v1.0
                 <li><a href="files.html"><span>Files</span></a></li>
                 <li><a href="annotated.html"><span>Data Structures</span></a></li>
                 <li><a href="globals_func.html"><span>Functions</span></a></li>
+                <li><a href="todo.html"><span>To do</span></a></li>
             </ul>
         </li>
     </ul>
@@ -97,43 +104,43 @@ window.onload = initDynSections;
 <a name="l00015"></a>00015 <span class="comment">along with Tesseroids.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
 <a name="l00016"></a>00016 <span class="comment">***************************************************************************** */</span>
 <a name="l00017"></a>00017 
-<a name="l00032"></a>00032 <span class="preprocessor">#ifndef _TESSEROIDS_GRAV_PRISM_H_</span>
-<a name="l00033"></a>00033 <span class="preprocessor"></span><span class="preprocessor">#define _TESSEROIDS_GRAV_PRISM_H_</span>
-<a name="l00034"></a>00034 <span class="preprocessor"></span>
-<a name="l00035"></a>00035 
-<a name="l00036"></a>00036 <span class="comment">/* Needed for definition of PRISM */</span>
-<a name="l00037"></a>00037 <span class="preprocessor">#include &quot;<a class="code" href="utils_8h.html" title="Set of misc utilities and data structures.">utils.h</a>&quot;</span>
-<a name="l00038"></a>00038 
+<a name="l00036"></a>00036 <span class="preprocessor">#ifndef _TESSEROIDS_GRAV_PRISM_H_</span>
+<a name="l00037"></a>00037 <span class="preprocessor"></span><span class="preprocessor">#define _TESSEROIDS_GRAV_PRISM_H_</span>
+<a name="l00038"></a>00038 <span class="preprocessor"></span>
 <a name="l00039"></a>00039 
-<a name="l00050"></a>00050 <span class="keyword">extern</span> <span class="keywordtype">double</span> <a class="code" href="grav__prism_8c.html#a1d50705fa4260b6f0b9010640d71bdfd" title="Calculates gx component caused by a right rectangular prism.">prism_gx</a>(<a class="code" href="struct_p_r_i_s_m.html" title="Store information on a rectangular prism.">PRISM</a> prism, <span class="keywordtype">double</span> xp, <span class="keywordtype">double</span> yp, <span class="keywordtype">double</span> zp);
-<a name="l00051"></a>00051 
-<a name="l00052"></a>00052 
-<a name="l00063"></a>00063 <span class="keyword">extern</span> <span class="keywordtype">double</span> <a class="code" href="grav__prism_8c.html#a5452d87acc7790dd21c8a773ca296b0f" title="Calculates gy component caused by a right rectangular prism.">prism_gy</a>(<a class="code" href="struct_p_r_i_s_m.html" title="Store information on a rectangular prism.">PRISM</a> prism, <span class="keywordtype">double</span> xp, <span class="keywordtype">double</span> yp, <span class="keywordtype">double</span> zp);
-<a name="l00064"></a>00064 
-<a name="l00065"></a>00065 
-<a name="l00076"></a>00076 <span class="keyword">extern</span> <span class="keywordtype">double</span> <a class="code" href="grav__prism_8c.html#a0b1fb975ff37e9ba99b09e449c341895" title="Calculates gz component caused by a right rectangular prism.">prism_gz</a>(<a class="code" href="struct_p_r_i_s_m.html" title="Store information on a rectangular prism.">PRISM</a> prism, <span class="keywordtype">double</span> xp, <span class="keywordtype">double</span> yp, <span class="keywordtype">double</span> zp);
-<a name="l00077"></a>00077 
-<a name="l00078"></a>00078 
-<a name="l00089"></a>00089 <span class="keyword">extern</span> <span class="keywordtype">double</span> <a class="code" href="grav__prism_8c.html#ad3a6b7f7b37834d527fad247794cafc7" title="Calculates gxx component caused by a right rectangular prism.">prism_gxx</a>(<a class="code" href="struct_p_r_i_s_m.html" title="Store information on a rectangular prism.">PRISM</a> prism, <span class="keywordtype">double</span> xp, <span class="keywordtype">double</span> yp, <span class="keywordtype">double</span> zp);
-<a name="l00090"></a>00090 
-<a name="l00091"></a>00091 
-<a name="l00102"></a>00102 <span class="keyword">extern</span> <span class="keywordtype">double</span> <a class="code" href="grav__prism_8c.html#a375c456380268239e239e7f199959a03" title="Calculates gxy component caused by a right rectangular prism.">prism_gxy</a>(<a class="code" href="struct_p_r_i_s_m.html" title="Store information on a rectangular prism.">PRISM</a> prism, <span class="keywordtype">double</span> xp, <span class="keywordtype">double</span> yp, <span class="keywordtype">double</span> zp);
-<a name="l00103"></a>00103 
-<a name="l00104"></a>00104 
-<a name="l00115"></a>00115 <span class="keyword">extern</span> <span class="keywordtype">double</span> <a class="code" href="grav__prism_8c.html#a76f987504f57901f7f038427981edb20" title="Calculates gxz component caused by a right rectangular prism.">prism_gxz</a>(<a class="code" href="struct_p_r_i_s_m.html" title="Store information on a rectangular prism.">PRISM</a> prism, <span class="keywordtype">double</span> xp, <span class="keywordtype">double</span> yp, <span class="keywordtype">double</span> zp);
-<a name="l00116"></a>00116 
-<a name="l00117"></a>00117 
-<a name="l00128"></a>00128 <span class="keyword">extern</span> <span class="keywordtype">double</span> <a class="code" href="grav__prism_8c.html#a53c7db238f485d0ffc3c637666b7bb82" title="Calculates gyy component caused by a right rectangular prism.">prism_gyy</a>(<a class="code" href="struct_p_r_i_s_m.html" title="Store information on a rectangular prism.">PRISM</a> prism, <span class="keywordtype">double</span> xp, <span class="keywordtype">double</span> yp, <span class="keywordtype">double</span> zp);
-<a name="l00129"></a>00129 
-<a name="l00130"></a>00130 
-<a name="l00141"></a>00141 <span class="keyword">extern</span> <span class="keywordtype">double</span> <a class="code" href="grav__prism_8c.html#a475dc9fdef454a0a055b8eff31af6579" title="Calculates gyz component caused by a right rectangular prism.">prism_gyz</a>(<a class="code" href="struct_p_r_i_s_m.html" title="Store information on a rectangular prism.">PRISM</a> prism, <span class="keywordtype">double</span> xp, <span class="keywordtype">double</span> yp, <span class="keywordtype">double</span> zp);
-<a name="l00142"></a>00142 
-<a name="l00143"></a>00143 
-<a name="l00154"></a>00154 <span class="keyword">extern</span> <span class="keywordtype">double</span> <a class="code" href="grav__prism_8c.html#ad11d7ced836c7956a9f38d442903b01f" title="Calculates gzz component caused by a right rectangular prism.">prism_gzz</a>(<a class="code" href="struct_p_r_i_s_m.html" title="Store information on a rectangular prism.">PRISM</a> prism, <span class="keywordtype">double</span> xp, <span class="keywordtype">double</span> yp, <span class="keywordtype">double</span> zp);
-<a name="l00155"></a>00155 
-<a name="l00156"></a>00156 <span class="preprocessor">#endif</span>
+<a name="l00040"></a>00040 <span class="comment">/* Needed for definition of PRISM */</span>
+<a name="l00041"></a>00041 <span class="preprocessor">#include &quot;<a class="code" href="utils_8h.html" title="Set of misc utilities and data structures.">utils.h</a>&quot;</span>
+<a name="l00042"></a>00042 
+<a name="l00043"></a>00043 
+<a name="l00054"></a>00054 <span class="keyword">extern</span> <span class="keywordtype">double</span> <a class="code" href="grav__prism_8c.html#a1d50705fa4260b6f0b9010640d71bdfd" title="Calculates gx component caused by a right rectangular prism.">prism_gx</a>(<a class="code" href="struct_p_r_i_s_m.html" title="Store information on a rectangular prism.">PRISM</a> prism, <span class="keywordtype">double</span> xp, <span class="keywordtype">double</span> yp, <span class="keywordtype">double</span> zp);
+<a name="l00055"></a>00055 
+<a name="l00056"></a>00056 
+<a name="l00067"></a>00067 <span class="keyword">extern</span> <span class="keywordtype">double</span> <a class="code" href="grav__prism_8c.html#a5452d87acc7790dd21c8a773ca296b0f" title="Calculates gy component caused by a right rectangular prism.">prism_gy</a>(<a class="code" href="struct_p_r_i_s_m.html" title="Store information on a rectangular prism.">PRISM</a> prism, <span class="keywordtype">double</span> xp, <span class="keywordtype">double</span> yp, <span class="keywordtype">double</span> zp);
+<a name="l00068"></a>00068 
+<a name="l00069"></a>00069 
+<a name="l00080"></a>00080 <span class="keyword">extern</span> <span class="keywordtype">double</span> <a class="code" href="grav__prism_8c.html#a0b1fb975ff37e9ba99b09e449c341895" title="Calculates gz component caused by a right rectangular prism.">prism_gz</a>(<a class="code" href="struct_p_r_i_s_m.html" title="Store information on a rectangular prism.">PRISM</a> prism, <span class="keywordtype">double</span> xp, <span class="keywordtype">double</span> yp, <span class="keywordtype">double</span> zp);
+<a name="l00081"></a>00081 
+<a name="l00082"></a>00082 
+<a name="l00093"></a>00093 <span class="keyword">extern</span> <span class="keywordtype">double</span> <a class="code" href="grav__prism_8c.html#ad3a6b7f7b37834d527fad247794cafc7" title="Calculates gxx component caused by a right rectangular prism.">prism_gxx</a>(<a class="code" href="struct_p_r_i_s_m.html" title="Store information on a rectangular prism.">PRISM</a> prism, <span class="keywordtype">double</span> xp, <span class="keywordtype">double</span> yp, <span class="keywordtype">double</span> zp);
+<a name="l00094"></a>00094 
+<a name="l00095"></a>00095 
+<a name="l00106"></a>00106 <span class="keyword">extern</span> <span class="keywordtype">double</span> <a class="code" href="grav__prism_8c.html#a375c456380268239e239e7f199959a03" title="Calculates gxy component caused by a right rectangular prism.">prism_gxy</a>(<a class="code" href="struct_p_r_i_s_m.html" title="Store information on a rectangular prism.">PRISM</a> prism, <span class="keywordtype">double</span> xp, <span class="keywordtype">double</span> yp, <span class="keywordtype">double</span> zp);
+<a name="l00107"></a>00107 
+<a name="l00108"></a>00108 
+<a name="l00119"></a>00119 <span class="keyword">extern</span> <span class="keywordtype">double</span> <a class="code" href="grav__prism_8c.html#a76f987504f57901f7f038427981edb20" title="Calculates gxz component caused by a right rectangular prism.">prism_gxz</a>(<a class="code" href="struct_p_r_i_s_m.html" title="Store information on a rectangular prism.">PRISM</a> prism, <span class="keywordtype">double</span> xp, <span class="keywordtype">double</span> yp, <span class="keywordtype">double</span> zp);
+<a name="l00120"></a>00120 
+<a name="l00121"></a>00121 
+<a name="l00132"></a>00132 <span class="keyword">extern</span> <span class="keywordtype">double</span> <a class="code" href="grav__prism_8c.html#a53c7db238f485d0ffc3c637666b7bb82" title="Calculates gyy component caused by a right rectangular prism.">prism_gyy</a>(<a class="code" href="struct_p_r_i_s_m.html" title="Store information on a rectangular prism.">PRISM</a> prism, <span class="keywordtype">double</span> xp, <span class="keywordtype">double</span> yp, <span class="keywordtype">double</span> zp);
+<a name="l00133"></a>00133 
+<a name="l00134"></a>00134 
+<a name="l00145"></a>00145 <span class="keyword">extern</span> <span class="keywordtype">double</span> <a class="code" href="grav__prism_8c.html#a475dc9fdef454a0a055b8eff31af6579" title="Calculates gyz component caused by a right rectangular prism.">prism_gyz</a>(<a class="code" href="struct_p_r_i_s_m.html" title="Store information on a rectangular prism.">PRISM</a> prism, <span class="keywordtype">double</span> xp, <span class="keywordtype">double</span> yp, <span class="keywordtype">double</span> zp);
+<a name="l00146"></a>00146 
+<a name="l00147"></a>00147 
+<a name="l00158"></a>00158 <span class="keyword">extern</span> <span class="keywordtype">double</span> <a class="code" href="grav__prism_8c.html#ad11d7ced836c7956a9f38d442903b01f" title="Calculates gzz component caused by a right rectangular prism.">prism_gzz</a>(<a class="code" href="struct_p_r_i_s_m.html" title="Store information on a rectangular prism.">PRISM</a> prism, <span class="keywordtype">double</span> xp, <span class="keywordtype">double</span> yp, <span class="keywordtype">double</span> zp);
+<a name="l00159"></a>00159 
+<a name="l00160"></a>00160 <span class="preprocessor">#endif</span>
 </pre></div></div>
 <hr class="footer"/><address style="text-align: right;"><small>
-Generated on Tue Feb 15 00:19:04 2011 for Tesseroids 1.0: User manual and API documentation by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3</small></address>
+Generated on Tue Feb 15 17:31:18 2011 for Tesseroids 1.0: User manual and API documentation by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3</small></address>
 </body>
 </html>

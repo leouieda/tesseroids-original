@@ -21,7 +21,13 @@ Tesseroids v1.0
 
 <div class="supertabs">
     <ul class="tablist">
-        <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+        <li><a href="index.html"><span>Main&#160;Page</span></a>
+            <ul class="subtablist">
+                <li><a href="http://code.google.com/p/tesseroids"><span>Project site</span></a></li>
+                <li><a href="http://code.google.com/p/tesseroids/downloads/list"><span>Download</span></a></li>
+                <li><a href="http://www.gnu.org/licenses/gpl.html"><span>License</span></a></li>
+            </ul>
+        </li>
         <li><a href="userman.html"><span>User&#160;Manual</span></a>
             <ul class="subtablist">
                 <li><a href="userman-theory.html"><span>Theory</span></a></li>
@@ -34,6 +40,7 @@ Tesseroids v1.0
                 <li><a href="files.html"><span>Files</span></a></li>
                 <li><a href="annotated.html"><span>Data Structures</span></a></li>
                 <li><a href="globals_func.html"><span>Functions</span></a></li>
+                <li><a href="todo.html"><span>To do</span></a></li>
             </ul>
         </li>
     </ul>
@@ -139,77 +146,52 @@ window.onload = initDynSections;
 <a name="l00069"></a>00069 } <a class="code" href="struct_s_p_h_e_r_e.html" title="Store information on a sphere.">SPHERE</a>;
 <a name="l00070"></a>00070 
 <a name="l00071"></a>00071 
-<a name="l00072"></a>00072 <span class="comment">/* Change the coordinates of a point P from a global coordinate system to the</span>
-<a name="l00073"></a>00073 <span class="comment">    local system of a point Q</span>
-<a name="l00074"></a>00074 <span class="comment"></span>
-<a name="l00075"></a>00075 <span class="comment">Coordinates given in SI and degrees!</span>
-<a name="l00076"></a>00076 <span class="comment"></span>
-<a name="l00077"></a>00077 <span class="comment">Uses constant MEAN_EARTH_RADIUS.</span>
-<a name="l00078"></a>00078 <span class="comment"></span>
-<a name="l00079"></a>00079 <span class="comment">\image latex coordinate_sys.pdf &quot;Points P and Q in the global coordinate system and their local systems&quot;</span>
-<a name="l00080"></a>00080 <span class="comment">\image html coordinate_sys.png &quot;Points P and Q in the global coordinate system and their local systems&quot;</span>
-<a name="l00081"></a>00081 <span class="comment"></span>
-<a name="l00082"></a>00082 <span class="comment">@param lonp longitude of point P</span>
-<a name="l00083"></a>00083 <span class="comment">@param latp latitude of point P</span>
-<a name="l00084"></a>00084 <span class="comment">@param rp radial coordinate of point P</span>
-<a name="l00085"></a>00085 <span class="comment">@param lonq longitude of point Q (origin of the local system)</span>
-<a name="l00086"></a>00086 <span class="comment">@param latq latitude of point Q (origin of the local system)</span>
-<a name="l00087"></a>00087 <span class="comment">@param rq radial coordinate of point Q (origin of the local system)</span>
-<a name="l00088"></a>00088 <span class="comment">@param xp x coordinate of P in the local system of Q</span>
-<a name="l00089"></a>00089 <span class="comment">@param yp y coordinate of P in the local system of Q</span>
-<a name="l00090"></a>00090 <span class="comment">@param zp z coordinate of P in the local system of Q</span>
-<a name="l00091"></a>00091 <span class="comment">*/</span>
-<a name="l00092"></a>00092 <span class="comment">/*extern void chcoord_g2l(double lonp, double latp, double rp, double lonq,</span>
-<a name="l00093"></a>00093 <span class="comment">                    double latq, double rq, double *xp, double *yp, double *zp);</span>
-<a name="l00094"></a>00094 <span class="comment">*/</span>
-<a name="l00095"></a>00095 
-<a name="l00096"></a>00096 
-<a name="l00102"></a>00102 <span class="keyword">extern</span> <span class="keywordtype">void</span> <a class="code" href="utils_8c.html#a83f38c5204c7a160d1ce61a07b3a8649" title="Split a tesseroid into 8.">split_tess</a>(<a class="code" href="struct_t_e_s_s_e_r_o_i_d.html" title="Store information on a tesseroid.">TESSEROID</a> tess, <a class="code" href="struct_t_e_s_s_e_r_o_i_d.html" title="Store information on a tesseroid.">TESSEROID</a> *split);
-<a name="l00103"></a>00103 
-<a name="l00104"></a>00104 
-<a name="l00114"></a>00114 <span class="keyword">extern</span> <span class="keywordtype">double</span> <a class="code" href="utils_8c.html#aa97cf4d0e501c5ad88bfdba21792e5bf" title="Calculate the total mass of a tesseroid model.">tess_total_mass</a>(<a class="code" href="struct_t_e_s_s_e_r_o_i_d.html" title="Store information on a tesseroid.">TESSEROID</a> *model, <span class="keywordtype">int</span> size);
-<a name="l00115"></a>00115 
-<a name="l00116"></a>00116 
-<a name="l00128"></a>00128 <span class="keyword">extern</span> <span class="keywordtype">double</span> <a class="code" href="utils_8c.html#a8a46ad0ff18e473ff8cdc03a1797a983" title="Calculate the mass of a tesseroid model within a density range.">tess_range_mass</a>(<a class="code" href="struct_t_e_s_s_e_r_o_i_d.html" title="Store information on a tesseroid.">TESSEROID</a> *model, <span class="keywordtype">int</span> size, <span class="keywordtype">double</span> low_dens,
-<a name="l00129"></a>00129                               <span class="keywordtype">double</span> high_dens);
-<a name="l00130"></a>00130 
-<a name="l00131"></a>00131 
-<a name="l00137"></a>00137 <span class="keyword">extern</span> <span class="keywordtype">void</span> <a class="code" href="utils_8c.html#a8a670e89ac121dfc5661cba9e25a961a" title="Convert a tesseroid into a rectangular prism of equal volume.">tess2prism</a>(<a class="code" href="struct_t_e_s_s_e_r_o_i_d.html" title="Store information on a tesseroid.">TESSEROID</a> tess, <a class="code" href="struct_p_r_i_s_m.html" title="Store information on a rectangular prism.">PRISM</a> *prism);
-<a name="l00138"></a>00138 
-<a name="l00139"></a>00139 
-<a name="l00146"></a>00146 <span class="keyword">extern</span> <span class="keywordtype">void</span> <a class="code" href="utils_8c.html#ad9fc3a0b19ab3bda6d3f2940efe2abbb" title="Convert a tesseroid into a sphere of equal volume.">tess2sphere</a>(<a class="code" href="struct_t_e_s_s_e_r_o_i_d.html" title="Store information on a tesseroid.">TESSEROID</a> tess, <a class="code" href="struct_s_p_h_e_r_e.html" title="Store information on a sphere.">SPHERE</a> *sphere);
-<a name="l00147"></a>00147 
-<a name="l00148"></a>00148 
-<a name="l00158"></a>00158 <span class="keyword">extern</span> <span class="keywordtype">void</span> <a class="code" href="utils_8c.html#a8f2dd4f26b7afc907dd59971e911d386" title="Convert a rectangular prism into a sphere of equal volume.">prism2sphere</a>(<a class="code" href="struct_p_r_i_s_m.html" title="Store information on a rectangular prism.">PRISM</a> prism, <span class="keywordtype">double</span> lonc, <span class="keywordtype">double</span> latc, <span class="keywordtype">double</span> rc,
-<a name="l00159"></a>00159                          <a class="code" href="struct_s_p_h_e_r_e.html" title="Store information on a sphere.">SPHERE</a> *sphere);
-<a name="l00160"></a>00160 
-<a name="l00161"></a>00161 
-<a name="l00168"></a>00168 <span class="keyword">extern</span> <span class="keywordtype">double</span> <a class="code" href="utils_8c.html#a00c24942819e27192d374f8da87ff9da" title="Calculate the volume of a tesseroid.">tess_volume</a>(<a class="code" href="struct_t_e_s_s_e_r_o_i_d.html" title="Store information on a tesseroid.">TESSEROID</a> tess);
-<a name="l00169"></a>00169 
-<a name="l00170"></a>00170 
-<a name="l00177"></a>00177 <span class="keyword">extern</span> <span class="keywordtype">double</span> <a class="code" href="utils_8c.html#a2c456662184b128f6f0573ce5aae520c" title="Calculate the volume of a sphere.">sphere_volume</a>(<a class="code" href="struct_s_p_h_e_r_e.html" title="Store information on a sphere.">SPHERE</a> sphere);
-<a name="l00178"></a>00178 
-<a name="l00179"></a>00179 
-<a name="l00186"></a>00186 <span class="keyword">extern</span> <span class="keywordtype">double</span> <a class="code" href="utils_8c.html#a059e7ed8de92667f802cc107b8118ac9" title="Calculate the volume of a prism.">prism_volume</a>(<a class="code" href="struct_p_r_i_s_m.html" title="Store information on a rectangular prism.">PRISM</a> prism);
-<a name="l00187"></a>00187 
-<a name="l00188"></a>00188 
-<a name="l00195"></a>00195 <span class="keyword">extern</span> <span class="keywordtype">void</span> <a class="code" href="utils_8c.html#a2358a3f81ec32ad928433b02c80b0e1d" title="Strip trailing spaces and newlines from the end of a string.">strstrip</a>(<span class="keywordtype">char</span> *str);
-<a name="l00196"></a>00196 
-<a name="l00197"></a>00197 
-<a name="l00205"></a>00205 <span class="keyword">extern</span> <span class="keywordtype">int</span> <a class="code" href="utils_8c.html#a9b18a99b73ac3d5380034871da8a6279" title="Read a single tesseroid from a string.">gets_tess</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> *str, <a class="code" href="struct_t_e_s_s_e_r_o_i_d.html" title="Store information on a tesseroid.">TESSEROID</a> *tess);
-<a name="l00206"></a>00206 
-<a name="l00207"></a>00207 
-<a name="l00217"></a>00217 <span class="keyword">extern</span> <a class="code" href="struct_t_e_s_s_e_r_o_i_d.html" title="Store information on a tesseroid.">TESSEROID</a> * <a class="code" href="utils_8c.html#a534a18739663d5bffb7fedf77d80fcad" title="Read tesseroids from an open file and store them in an array.">read_tess_model</a>(FILE *modelfile, <span class="keywordtype">int</span> *size);
-<a name="l00218"></a>00218 
-<a name="l00219"></a>00219 
-<a name="l00227"></a>00227 <span class="keyword">extern</span> <span class="keywordtype">int</span> <a class="code" href="utils_8c.html#ac88c8a5435c39bf6ee5a9b9544ab8e1f" title="Read a single rectangular prism from a string.">gets_prism</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> *str, <a class="code" href="struct_p_r_i_s_m.html" title="Store information on a rectangular prism.">PRISM</a> *prism);
-<a name="l00228"></a>00228 
-<a name="l00229"></a>00229 
-<a name="l00239"></a>00239 <span class="keyword">extern</span> <a class="code" href="struct_p_r_i_s_m.html" title="Store information on a rectangular prism.">PRISM</a> * <a class="code" href="utils_8c.html#a7f78476a37e0f7b5b78022d457d4da20" title="Read rectangular prisms from an open file and store them in an array.">read_prism_model</a>(FILE *modelfile, <span class="keywordtype">int</span> *size);
-<a name="l00240"></a>00240 
-<a name="l00241"></a>00241 <span class="preprocessor">#endif</span>
+<a name="l00077"></a>00077 <span class="keyword">extern</span> <span class="keywordtype">void</span> <a class="code" href="utils_8c.html#a83f38c5204c7a160d1ce61a07b3a8649" title="Split a tesseroid into 8.">split_tess</a>(<a class="code" href="struct_t_e_s_s_e_r_o_i_d.html" title="Store information on a tesseroid.">TESSEROID</a> tess, <a class="code" href="struct_t_e_s_s_e_r_o_i_d.html" title="Store information on a tesseroid.">TESSEROID</a> *split);
+<a name="l00078"></a>00078 
+<a name="l00079"></a>00079 
+<a name="l00089"></a>00089 <span class="keyword">extern</span> <span class="keywordtype">double</span> <a class="code" href="utils_8c.html#aa97cf4d0e501c5ad88bfdba21792e5bf" title="Calculate the total mass of a tesseroid model.">tess_total_mass</a>(<a class="code" href="struct_t_e_s_s_e_r_o_i_d.html" title="Store information on a tesseroid.">TESSEROID</a> *model, <span class="keywordtype">int</span> size);
+<a name="l00090"></a>00090 
+<a name="l00091"></a>00091 
+<a name="l00103"></a>00103 <span class="keyword">extern</span> <span class="keywordtype">double</span> <a class="code" href="utils_8c.html#a8a46ad0ff18e473ff8cdc03a1797a983" title="Calculate the mass of a tesseroid model within a density range.">tess_range_mass</a>(<a class="code" href="struct_t_e_s_s_e_r_o_i_d.html" title="Store information on a tesseroid.">TESSEROID</a> *model, <span class="keywordtype">int</span> size, <span class="keywordtype">double</span> low_dens,
+<a name="l00104"></a>00104                               <span class="keywordtype">double</span> high_dens);
+<a name="l00105"></a>00105 
+<a name="l00106"></a>00106 
+<a name="l00112"></a>00112 <span class="keyword">extern</span> <span class="keywordtype">void</span> <a class="code" href="utils_8c.html#a8a670e89ac121dfc5661cba9e25a961a" title="Convert a tesseroid into a rectangular prism of equal volume.">tess2prism</a>(<a class="code" href="struct_t_e_s_s_e_r_o_i_d.html" title="Store information on a tesseroid.">TESSEROID</a> tess, <a class="code" href="struct_p_r_i_s_m.html" title="Store information on a rectangular prism.">PRISM</a> *prism);
+<a name="l00113"></a>00113 
+<a name="l00114"></a>00114 
+<a name="l00121"></a>00121 <span class="keyword">extern</span> <span class="keywordtype">void</span> <a class="code" href="utils_8c.html#ad9fc3a0b19ab3bda6d3f2940efe2abbb" title="Convert a tesseroid into a sphere of equal volume.">tess2sphere</a>(<a class="code" href="struct_t_e_s_s_e_r_o_i_d.html" title="Store information on a tesseroid.">TESSEROID</a> tess, <a class="code" href="struct_s_p_h_e_r_e.html" title="Store information on a sphere.">SPHERE</a> *sphere);
+<a name="l00122"></a>00122 
+<a name="l00123"></a>00123 
+<a name="l00133"></a>00133 <span class="keyword">extern</span> <span class="keywordtype">void</span> <a class="code" href="utils_8c.html#a8f2dd4f26b7afc907dd59971e911d386" title="Convert a rectangular prism into a sphere of equal volume.">prism2sphere</a>(<a class="code" href="struct_p_r_i_s_m.html" title="Store information on a rectangular prism.">PRISM</a> prism, <span class="keywordtype">double</span> lonc, <span class="keywordtype">double</span> latc, <span class="keywordtype">double</span> rc,
+<a name="l00134"></a>00134                          <a class="code" href="struct_s_p_h_e_r_e.html" title="Store information on a sphere.">SPHERE</a> *sphere);
+<a name="l00135"></a>00135 
+<a name="l00136"></a>00136 
+<a name="l00143"></a>00143 <span class="keyword">extern</span> <span class="keywordtype">double</span> <a class="code" href="utils_8c.html#a00c24942819e27192d374f8da87ff9da" title="Calculate the volume of a tesseroid.">tess_volume</a>(<a class="code" href="struct_t_e_s_s_e_r_o_i_d.html" title="Store information on a tesseroid.">TESSEROID</a> tess);
+<a name="l00144"></a>00144 
+<a name="l00145"></a>00145 
+<a name="l00152"></a>00152 <span class="keyword">extern</span> <span class="keywordtype">double</span> <a class="code" href="utils_8c.html#a2c456662184b128f6f0573ce5aae520c" title="Calculate the volume of a sphere.">sphere_volume</a>(<a class="code" href="struct_s_p_h_e_r_e.html" title="Store information on a sphere.">SPHERE</a> sphere);
+<a name="l00153"></a>00153 
+<a name="l00154"></a>00154 
+<a name="l00161"></a>00161 <span class="keyword">extern</span> <span class="keywordtype">double</span> <a class="code" href="utils_8c.html#a059e7ed8de92667f802cc107b8118ac9" title="Calculate the volume of a prism.">prism_volume</a>(<a class="code" href="struct_p_r_i_s_m.html" title="Store information on a rectangular prism.">PRISM</a> prism);
+<a name="l00162"></a>00162 
+<a name="l00163"></a>00163 
+<a name="l00170"></a>00170 <span class="keyword">extern</span> <span class="keywordtype">void</span> <a class="code" href="utils_8c.html#a2358a3f81ec32ad928433b02c80b0e1d" title="Strip trailing spaces and newlines from the end of a string.">strstrip</a>(<span class="keywordtype">char</span> *str);
+<a name="l00171"></a>00171 
+<a name="l00172"></a>00172 
+<a name="l00180"></a>00180 <span class="keyword">extern</span> <span class="keywordtype">int</span> <a class="code" href="utils_8c.html#a9b18a99b73ac3d5380034871da8a6279" title="Read a single tesseroid from a string.">gets_tess</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> *str, <a class="code" href="struct_t_e_s_s_e_r_o_i_d.html" title="Store information on a tesseroid.">TESSEROID</a> *tess);
+<a name="l00181"></a>00181 
+<a name="l00182"></a>00182 
+<a name="l00192"></a>00192 <span class="keyword">extern</span> <a class="code" href="struct_t_e_s_s_e_r_o_i_d.html" title="Store information on a tesseroid.">TESSEROID</a> * <a class="code" href="utils_8c.html#a534a18739663d5bffb7fedf77d80fcad" title="Read tesseroids from an open file and store them in an array.">read_tess_model</a>(FILE *modelfile, <span class="keywordtype">int</span> *size);
+<a name="l00193"></a>00193 
+<a name="l00194"></a>00194 
+<a name="l00202"></a>00202 <span class="keyword">extern</span> <span class="keywordtype">int</span> <a class="code" href="utils_8c.html#ac88c8a5435c39bf6ee5a9b9544ab8e1f" title="Read a single rectangular prism from a string.">gets_prism</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> *str, <a class="code" href="struct_p_r_i_s_m.html" title="Store information on a rectangular prism.">PRISM</a> *prism);
+<a name="l00203"></a>00203 
+<a name="l00204"></a>00204 
+<a name="l00214"></a>00214 <span class="keyword">extern</span> <a class="code" href="struct_p_r_i_s_m.html" title="Store information on a rectangular prism.">PRISM</a> * <a class="code" href="utils_8c.html#a7f78476a37e0f7b5b78022d457d4da20" title="Read rectangular prisms from an open file and store them in an array.">read_prism_model</a>(FILE *modelfile, <span class="keywordtype">int</span> *size);
+<a name="l00215"></a>00215 
+<a name="l00216"></a>00216 <span class="preprocessor">#endif</span>
 </pre></div></div>
 <hr class="footer"/><address style="text-align: right;"><small>
-Generated on Tue Feb 15 00:19:04 2011 for Tesseroids 1.0: User manual and API documentation by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3</small></address>
+Generated on Tue Feb 15 17:31:18 2011 for Tesseroids 1.0: User manual and API documentation by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3</small></address>
 </body>
 </html>
