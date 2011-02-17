@@ -14,7 +14,7 @@ time_normal.txt: time_normal.sh model.txt grid.txt
 	@echo "\nTIMING NORMAL EXECUTION\n"
 	./$< -o5/5/2
 
-time_adapt.txt: time_adapt.sh model.txt grid.txt
+time_adapt.txt: time_adapt.sh model.txt grid.txt ../../../src/c/tessg*.c
 	@echo "\nTIMING ADAPTATIVE EXECUTION\n"
 	./$<
 

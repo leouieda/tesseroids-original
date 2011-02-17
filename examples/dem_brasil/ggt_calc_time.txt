@@ -1,0 +1,11 @@
+tessgzz (Tesseroids project) 1.0
+(local time) Thu Feb 17 17:26:53 2011
+
+Using GLQ orders: 2 lon / 2 lat / 2 r
+Reading tesseroid model from file dem-tess-model.txt
+Total of 22801 tesseroid(s) read
+Calculating gzz component (this may take a while)...
+0.03user 0.00system 22:02.79elapsed 0%CPU (0avgtext+0avgdata 2704maxresident)k
+0inputs+0outputs (0major+207minor)pagefaults 0swaps
+Calculated on 10000 points in 560.08 seconds
+Done

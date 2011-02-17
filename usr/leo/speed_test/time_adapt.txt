@@ -1,3 +1,5 @@
+USING fact = 1.5
+
 tessgzz (Tesseroids project) 1.0
 (local time) Sat Feb 12 20:15:14 2011
 
@@ -37,3 +39,46 @@ Done
 real	16m33.295s
 user	16m24.030s
 sys	0m3.290s
+
+
+USING fact = 5
+
+tessgzz (Tesseroids project) 1.0
+(local time) Thu Feb 17 16:00:48 2011
+
+Using GLQ orders: 2 lon / 2 lat / 2 r
+Reading tesseroid model from file model.txt
+Total of 14641 tesseroid(s) read
+Calculating gzz component (this may take a while)...
+Calculated on 25600 points in 1305.7 seconds
+Done
+
+real	21m48.726s
+user	21m43.460s
+sys	0m2.320s
+tessgzz (Tesseroids project) 1.0
+(local time) Thu Feb 17 16:22:37 2011
+
+Using GLQ orders: 2 lon / 2 lat / 2 r
+Reading tesseroid model from file model.txt
+Total of 14641 tesseroid(s) read
+Calculating gzz component (this may take a while)...
+Calculated on 25600 points in 1272.6 seconds
+Done
+
+real	21m14.881s
+user	21m9.430s
+sys	0m3.200s
+tessgzz (Tesseroids project) 1.0
+(local time) Thu Feb 17 16:43:52 2011
+
+Using GLQ orders: 2 lon / 2 lat / 2 r
+Reading tesseroid model from file model.txt
+Total of 14641 tesseroid(s) read
+Calculating gzz component (this may take a while)...
+Calculated on 25600 points in 1274 seconds
+Done
+
+real	21m15.135s
+user	21m11.950s
+sys	0m2.070s
