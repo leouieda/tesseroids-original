@@ -19,11 +19,9 @@ dem-tess-model.txt: parana-dem-10sec-density.txt
 	@echo "\nCONVERTING DEM TO TESSEROIDS\n"
 	@${BINPATH}/tessmodgen -v -s0.166666667/0.166666667 -z0 < $< > $@
 
-parana-ggt-10sec.txt: dem-tess-model.txt
+parana-ggt-10sec.txt: dem-tess-model.txt calc_ggt.sh 
 	@echo "\nCALCULATING GGT OF DEM MODEL AT GOCE HEIGHT\n"
-	@(time ${BINPATH}/tessgrd -r-60/-45/-30/-15 -b100/100 -z250e03 | ${BINPATH}/tessgxx $< -a | \
-	${BINPATH}/tessgxy $< -a | ${BINPATH}/tessgxz $< -a | ${BINPATH}/tessgyy $< -a | \
-	${BINPATH}/tessgyz $< -a | ${BINPATH}/tessgzz $< -a -v > $@) 2> ggt_calc_time.txt
+	@/usr/bin/time -v -o ggt_exec_time.txt ./calc_ggt.sh $< $@
 	
 parana-ggt-10sec.png: plot_ggt.py parana-ggt-10sec.txt
 	@echo "\nPLOTTING GGT\n"
