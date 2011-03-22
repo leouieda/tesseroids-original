@@ -1,16 +1,26 @@
 #!/usr/bin/env python
-# Print the computation points in spherical coordinates
+# Print the computation points in spherical coordinatesi
+import sys
+
 import numpy
 
-lons = numpy.arange(-1, 1, 0.05)
-lats = numpy.arange(-1, 1, 0.05)
-heights = numpy.arange(1, 250000, 5000)
+# Read the tesseroid from file
+w, e, s, n, t, b, dens = numpy.loadtxt(sys.argv[1])
 
-#for h in heights:
-    #for lat in lats:
-        #for lon in lons:
-            #print lon, lat, h
+dz = t - b
 
-for lat in lats:
-    for lon in lons:
-        print lon, lat, 20000
+# Make the grid 10x the tesseroid
+ratio = 10.
+
+lons = numpy.arange(ratio*w, ratio*e, 0.05*ratio*e, 'f')
+lats = numpy.arange(ratio*s, ratio*n, 0.05*ratio*n, 'f')
+heights = numpy.arange(0.5*dz, ratio*2.*dz, dz, 'f')
+
+for h in heights:
+    for lat in lats:
+        for lon in lons:
+            print lon, lat, h
+
+#for lat in lats:
+    #for lon in lons:
+        #print lon, lat, 1000

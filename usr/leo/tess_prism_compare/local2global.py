@@ -6,13 +6,11 @@ import numpy
 
 import rotations as rot
 
-assert len(sys.argv) == 4, "Missing cmd args. Pass lon lat height of prism in this order."
+# Get the spherical coordinates of the prism
+lonO, latO, hO = 0, 0, 0
 
-# Get the spherical coordinates of the prism from argv
-lonO, latO, hO = float(sys.argv[1]), float(sys.argv[2]), float(sys.argv[3])
-
-prismdata = numpy.loadtxt("prismgrav_local.txt").T
-lons, lats, heights = numpy.loadtxt("tessgrav.txt", unpack=True, usecols=(0,1,2))
+prismdata = numpy.loadtxt(sys.argv[1]).T
+lons, lats, heights = numpy.loadtxt(sys.argv[2], unpack=True, usecols=(0,1,2))
 
 prismgx = prismdata[3]
 prismgy = prismdata[4]
@@ -38,6 +36,7 @@ for i, coords in enumerate(zip(lons, lats, heights)):
 
     ggt = ggt.tolist()
     g = g.T.tolist()[0]
-    
-    print lon, lat, h, g[2], ggt[0][0], ggt[0][1], ggt[0][2], ggt[1][1], \
-          ggt[1][2], ggt[2][2]
+
+    # xz and yz should have their signs changed because prism has z->down and tess has z->up
+    print lon, lat, h, g[2], ggt[0][0], ggt[0][1], -1*ggt[0][2], ggt[1][1], \
+          -1*ggt[1][2], ggt[2][2]
