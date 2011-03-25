@@ -14,13 +14,16 @@ ratio = 10.
 
 lons = numpy.arange(ratio*w, ratio*e, 0.05*ratio*e, 'f')
 lats = numpy.arange(ratio*s, ratio*n, 0.05*ratio*n, 'f')
-heights = numpy.arange(0.5*dz, ratio*2.*dz, dz, 'f')
+heights = numpy.arange(0.1*dz, ratio*2.*dz, dz, 'f')
 
 for h in heights:
     for lat in lats:
         for lon in lons:
             print lon, lat, h
 
+#ratio = 10.
+#lons = numpy.arange(ratio*w, ratio*e, 0.02*ratio*e, 'f')
+#lats = numpy.arange(ratio*s, ratio*n, 0.02*ratio*n, 'f')
 #for lat in lats:
     #for lon in lons:
-        #print lon, lat, 1000
+        #print lon, lat, 0.001
