@@ -9,9 +9,9 @@ R = 6378137.0
 d2r = numpy.pi/180.
 
 
-def gamma(lat):
-    "International Gravity Formula"
-    return 9.780490*(1. + 0.0052884*(numpy.sin(d2r*lat)**2) - 0.0000059*(numpy.sin(d2r*2.*lat)**2))
+#def gamma(lat):
+    #"International Gravity Formula"
+    #return 9.780490*(1. + 0.0052884*(numpy.sin(lat)**2) - 0.0000059*(numpy.sin(2.*lat)**2))
 
 
 tessdata = numpy.loadtxt(sys.argv[1], unpack=True)
