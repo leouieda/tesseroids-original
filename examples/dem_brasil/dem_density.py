@@ -1,11 +1,10 @@
 """
-Assign density values for the DEM points. 2.67 for continent (h>=0) and 1.67
-for ocean (h<0).
+Assign density values for the DEM points.
 """
-
+import sys
 import numpy
 
-lons, lats, heights = numpy.loadtxt('parana-dem-10sec.xyz', unpack=True)
+lons, lats, heights = numpy.loadtxt(sys.argv[1], unpack=True)
 
 for i in xrange(len(heights)):
     if heights[i] >=0:
