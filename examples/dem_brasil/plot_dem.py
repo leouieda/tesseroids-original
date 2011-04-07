@@ -1,12 +1,15 @@
 """
 Make plot of the DEM model using Matplotlib with Basemap toolkit
 """
+import sys
+
+assert len(sys.argv) == 3, "Missing args: dem_file_name and output"
 
 import numpy
 import pylab
 from mpl_toolkits.basemap import Basemap
 
-lons, lats, heights = pylab.loadtxt('parana-dem-10sec.xyz', unpack=True)
+lons, lats, heights = pylab.loadtxt(sys.argv[1], unpack=True)
 nlons = 151  # Number of points in the longitude direction
 nlats = len(lats)/nlons
 
@@ -26,17 +29,12 @@ bm = Basemap(projection='merc',
              area_thresh=10000)
 
 bm.drawmeridians(numpy.arange(lons[0]+5., lons[-1], 5.),
-                 labels=[0,0,0,1], fontsize=12, linewidth=0.5)#,
-                 #labelstyle='+/-')
+                 labels=[0,0,0,1], fontsize=12, linewidth=0.5)
 bm.drawparallels(numpy.arange(lats[-1]+5., lats[0], 5.),
-                 labels=[1,0,0,0], fontsize=12, linewidth=0.5)#, 
-                 #labelstyle='+/-')
+                 labels=[1,0,0,0], fontsize=12, linewidth=0.5)
 bm.drawcoastlines(linewidth=1)
-#bm.fillcontinents(color='coral')
 bm.drawmapboundary()
-#bm.bluemarble()
 bm.drawcountries(linewidth=0.8)
-#bm.drawstates(linewidth=0.6)
 
 # Do the pseudo-color plot
 glons, glats = bm(glons, glats)
@@ -55,5 +53,5 @@ areax, areay = bm([w, w, e, e, w], \
 bm.plot(areax, areay, '-r', label="Computation grid", linewidth=1.8)
 pylab.legend(shadow=True, loc='lower right', prop={'size':10})
 
-pylab.savefig("parana-dem-10sec.png")
+pylab.savefig(sys.argv[2])
 

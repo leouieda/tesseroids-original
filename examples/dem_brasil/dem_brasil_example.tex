@@ -1,0 +1,37 @@
+\documentclass[a4paper]{article}
+
+\usepackage{listings}
+
+\title{Example: Calculate the gravity gradient tensor from a DEM file}
+\author{Leonardo Uieda}
+
+\begin{document}
+
+\maketitle
+
+\lstset{numbers=left,
+        basicstyle=\footnotesize,
+        breaklines=true}
+
+This document intends to demonstrate how to calculate the gravity gradient
+tensor (GGT) due to topographic masses. To do that we need:
+\begin{enumerate}
+    \item A DEM file with lon, lat, and height information;
+    \item Convert the DEM information into a tesseroid model;
+    \item Assign correct densities to the tesseroids (in the oceans it should be different);
+    \item Calculate the 6 components of the GGT;
+    \item Make nice color plots of the results (we'll be using Python for this);
+\end{enumerate}
+
+
+
+\section{The DEM file}
+
+
+
+
+\lstinputlisting[language=Python]{plot_dem.py}
+
+
+
+\end{document}

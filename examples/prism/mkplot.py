@@ -1,31 +1,32 @@
-# Make a plot of the data file passed
+# Make a plot of prism_output.txt
 
-import sys
 import pylab
+import matplotlib
 
-assert len(sys.argv) > 4, "Need 4 arguments: filename, column, nlon, nlat"
+output = pylab.loadtxt('prism_output.txt').T
 
-fname = sys.argv[1]
-col = int(sys.argv[2])
-nlons = int(sys.argv[3])
-nlats = int(sys.argv[4])
+shape = (100, 100)
+X = pylab.reshape(output[0], shape)*0.001
+Y = pylab.reshape(output[1], shape)*0.001
 
-lons, lats, vals = pylab.loadtxt(fname, usecols=[0,1,col-1], unpack=True)
+matplotlib.rcParams['contour.negative_linestyle'] = 'solid'
 
-X = pylab.reshape(lons, (nlons, nlats))
-Y = pylab.reshape(lats, (nlons, nlats))
-Z = pylab.reshape(vals, (nlons, nlats))
+pylab.figure(figsize=(9,10))
+pylab.subplots_adjust(hspace=0.35, wspace=0.01, bottom=0.06, top=0.95, left=0.05,
+                      right=1)
+sp = [7, 1, 2, 3, 5, 6, 9]
+for i in range(3, len(output)):
+    Z = pylab.reshape(output[i], shape)
+    pylab.subplot(3, 3, sp[i - 3])
+    pylab.axis("scaled")
+    pylab.title("prism_output.txt: column %d" % (i + 1), fontsize=10)
+    #pylab.contourf(X, Y, Z, 8)
+    pylab.pcolor(X, Y, Z)
+    ct = pylab.contour(X, Y, Z, 8, colors='k')
+    ct.clabel(fmt='%g', fontsize=11)
+    pylab.xlabel("Easting (km)", fontsize=10)
+    pylab.ylabel("Northing (km)", fontsize=10)
+    pylab.xlim(X.min(), X.max())
+    pylab.ylim(Y.min(), Y.max())
 
-pylab.figure()
-pylab.axis("scaled")
-pylab.title("%s: column %d" % (fname, col))
-pylab.pcolor(X, Y, Z)
-ct_data = pylab.contour(X, Y, Z, 12, colors='k')
-#ct_data = pylab.contourf(X, Y, Z, 12)
-#ct_data = pylab.contour(X, Y, Z, ct_data.levels, colors='k')
-ct_data.clabel(fmt='%g', fontsize=14)
-pylab.xlabel("Longitude")
-pylab.ylabel("Latitude")
-pylab.xlim(X.min(), X.max())
-pylab.ylim(Y.min(), Y.max())
 pylab.show()
