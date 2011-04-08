@@ -28,5 +28,4 @@ for i in range(3, len(output)):
     pylab.ylabel(r"Latitude ($^{\circ}$)", fontsize=10)
     pylab.xlim(X.min(), X.max())
     pylab.ylim(Y.min(), Y.max())
-
-pylab.show()
+pylab.savefig("example.png")
