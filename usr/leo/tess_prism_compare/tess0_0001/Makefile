@@ -1,5 +1,5 @@
 BINPATH = ../../../../bin
-ORDER = -o2/2/2
+ORDER = -o2/2/2 -a
 
 
 comparison.png: ../compare.py differences.txt tess.txt
