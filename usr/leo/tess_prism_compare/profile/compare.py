@@ -22,54 +22,58 @@ lonc = d2r*0.5*(e + w)
 latc = d2r*0.5*(n + s)
 
 size = max([0.001*R*d2r*(e-w), 0.001*R*d2r*(n-s), 0.001*(t-b)])
-
 distances = 0.001*numpy.sqrt(rp**2 + rc**2 - 2*rp*rc*(numpy.sin(latp)*numpy.sin(latc) +
                  numpy.cos(latp)*numpy.cos(latc)*numpy.cos(lonp - lonc)))
 distances = distances/size
 
-diffgz = abs(tessdata[5] - prismdata[5])
-diffgz = numpy.log(diffgz)
-diffgzz = abs(tessdata[-1] - prismdata[-1])
-diffgzz = numpy.log(diffgzz)
+# Need to use base 10 log!
+diffs = numpy.log10(abs(tessdata[4:] - prismdata[4:]))
 
 shape = (100,100)
 X = numpy.reshape(lonp, shape)
-
 Y = numpy.reshape(hp, shape)
-
-Zdiffgz = numpy.reshape(diffgz, shape)
-Zdiffgzz = numpy.reshape(diffgzz, shape)
 Zdist = numpy.reshape(distances, shape)
 
+components = ['gz', 'gxx', 'gxy', 'gxz', 'gyy', 'gyz', 'gzz']
+errors = [-2, -3, -3, -3, -3, -3, -3]
+
+pylab.figure(figsize=(14,9))
+pylab.subplots_adjust(hspace=0.5, wspace=0.2, top=0.95, bottom=0.08)
+# Plot gz
+comp, error = components[0], errors[0]
+Zdiff = numpy.reshape(diffs[0], shape)
 matplotlib.rcParams['contour.negative_linestyle'] = 'solid'
-
 levels = [1, 2, 3, 4, 5, 6, 8, 10, 12, 14, 16]
-
-pylab.figure(figsize=(12,6))
-pylab.subplot(211)
-pylab.title("gz")
-pylab.pcolor(X, Y, Zdiffgz, vmax=1)
+pylab.subplot(4,2,1)
+pylab.title(comp)
+pylab.pcolor(X, Y, Zdiff)
 pylab.colorbar()
-ct_data = pylab.contour(X, Y, Zdiffgz, levels=[-2], colors='w')
+ct_data = pylab.contour(X, Y, Zdiff, levels=[error], colors='w')
 pylab.setp(ct_data.collections[0], linewidth=3)
-#ct_data.clabel(fmt='%d')
 ct_data = pylab.contour(X, Y, Zdist, levels=levels, colors='k')
 ct_data.clabel(fmt='%d')
 pylab.xlim(X.min(), X.max())
 pylab.ylim(Y.min(), Y.max())
-
-pylab.subplot(212)
-pylab.title("gzz")
-pylab.pcolor(X, Y, Zdiffgzz, vmax=1)
-pylab.colorbar()
-ct_data = pylab.contour(X, Y, Zdiffgzz, levels=[-3], colors='w')
-pylab.setp(ct_data.collections[0], linewidth=3)
-#ct_data.clabel(fmt='%d')
-ct_data = pylab.contour(X, Y, Zdist, levels=levels, colors='k')
-ct_data.clabel(fmt='%d')
-pylab.xlim(X.min(), X.max())
-pylab.ylim(Y.min(), Y.max())
-
+pylab.xlabel(r"Longitude = Latitude ($^\circ$)")
+pylab.ylabel("Height (m)")
+# Plot tensor
+for i in xrange(1, len(components)):
+    comp, error = components[i], errors[i]
+    Zdiff = numpy.reshape(diffs[i], shape)
+    matplotlib.rcParams['contour.negative_linestyle'] = 'solid'
+    levels = [1, 2, 3, 4, 5, 6, 8, 10, 12, 14, 16]
+    pylab.subplot(4,2,i+2)
+    pylab.title(comp)
+    pylab.pcolor(X, Y, Zdiff)
+    pylab.colorbar()
+    ct_data = pylab.contour(X, Y, Zdiff, levels=[error], colors='w')
+    pylab.setp(ct_data.collections[0], linewidth=3)
+    ct_data = pylab.contour(X, Y, Zdist, levels=levels, colors='k')
+    ct_data.clabel(fmt='%d')
+    pylab.xlim(X.min(), X.max())
+    pylab.ylim(Y.min(), Y.max())
+    pylab.xlabel(r"Longitude = Latitude ($^\circ$)")
+    pylab.ylabel("Height (m)")
 
 pylab.savefig("comparison.png", dpi=200)
 #pylab.savefig("comparison.pdf")
