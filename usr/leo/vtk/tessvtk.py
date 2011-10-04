@@ -38,19 +38,21 @@ def tess2vtk(w,e,s,n,t,b):
     for p in points:
         print p[0], p[1], p[2]
     cells = [20]
-    cells.extend(xrange(20))
-    offsets = [21]
-    scalars = [1]    
+    cells.extend(range(20))
+    offsets = [0]
+    scalars = [1]
     cell_array = tvtk.CellArray()
     cell_array.set_cells(1, numpy.array(cells))
-    cell_types = numpy.array([25], 'i')    
-    vtkmesh = tvtk.UnstructuredGrid(points=numpy.array(points, 'f'))
-    vtkmesh.set_cells(cell_types, numpy.array(offsets, 'i'), cell_array)
+    cell_types = numpy.array([25])
+    vtkmesh = tvtk.UnstructuredGrid(points=numpy.array(points))
+    vtkmesh.set_cells(cell_types, numpy.array(offsets), cell_array)
     vtkmesh.cell_data.scalars = numpy.array(scalars)
     return vtkmesh
 
 if __name__ == '__main__':
-    
+
     tess = [30,60,-15,15,0,-3330000]
     mesh = tess2vtk(*tess)
+    mlab.pipeline.surface(mesh)
+    mlab.show()
 
