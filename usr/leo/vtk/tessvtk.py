@@ -1,7 +1,7 @@
 import math
 import numpy
-from enthought.mayavi import mlab
-from enthought.tvtk.api import tvtk
+from mayavi import mlab
+from tvtk.api import tvtk
 
 
 def sph2cart(lon,lat,r):
