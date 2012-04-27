@@ -7,7 +7,7 @@ echo '# Test tesseroid model file
 echo "The model file:"
 cat model.txt
 echo "Calculating..."
-time tessgrd -r-20/20/-20/20 -b50/50 -z250e03 | \
+time tessgrd -r-3e06/3e06/-3e06/3e06 -b50/50 -z250e03 | \
 prismpot model.txt | \
 prismgx model.txt | prismgy model.txt | prismgz model.txt | \
 prismgxx model.txt  | prismgxy model.txt  | prismgxz model.txt  | \
