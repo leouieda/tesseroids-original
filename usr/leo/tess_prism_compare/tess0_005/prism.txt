@@ -1,6 +1,0 @@
-# Prisms converted from tesseroid model with tess2prism 1.0
-#   local time: Sat Mar 26 11:33:47 2011
-#   tesseroids file: stdin
-#   format: x1 x2 y1 y2 z1 z2 density lon lat r
-# Tess 3
--278.287818675359 278.287818675359 -278.287818675359 278.287818675359 0 500 1000.00000019458 0 0 6378137

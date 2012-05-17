@@ -1,4 +1,0 @@
-Make comparison using higher order (use d/L*N)
-
-Only plot the maximum error per distance for each component, this way each
-graph can have the curves for different size tesseroids
