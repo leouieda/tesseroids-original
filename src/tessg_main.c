@@ -10,7 +10,6 @@ Generic main function for the tessg* programs.
 #include "logger.h"
 #include "version.h"
 #include "libtesseroid.h"
-#include "glq.h"
 #include "constants.h"
 #include "geometry.h"
 #include "parsers.h"

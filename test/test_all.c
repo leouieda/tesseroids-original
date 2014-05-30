@@ -6,7 +6,6 @@ Run all unit tests. This is compiled into a single executable (tesstest).
 #include <time.h>
 #include "../src/logger.h"
 #include "minunit.h"
-#include "test_glq.c"
 #include "test_geometry.c"
 #include "test_parsers.c"
 #include "test_grav_prism.c"
@@ -21,7 +20,6 @@ int main()
 
     log_init(LOG_INFO);
 
-    failed += glq_run_all();
     failed += geometry_run_all();
     failed += parsers_run_all();
     failed += grav_prism_run_all();

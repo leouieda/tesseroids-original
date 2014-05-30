@@ -39,7 +39,6 @@ tesssrc = Split("""
     src/logger.c
     src/version.c
     src/libtesseroid.c
-    src/glq.c
     src/constants.c
     src/geometry.c
     src/parsers.c
@@ -109,8 +108,6 @@ env.Program('bin/tessdefaults', source=Split("""
     src/logger.c
     src/version.c
     src/constants.c
-    src/glq.c
-    src/geometry.c
     """))
 # Build tessgrd
 env.Program('bin/tessgrd', source=Split("""
@@ -153,7 +150,6 @@ sources = [
     'test/test_all.c',
     'src/constants.c',
     'src/geometry.c',
-    'src/glq.c',
     'src/libprism.c',
     'src/libsphere.c',
     'src/libtesseroid.c',

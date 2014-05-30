@@ -3,14 +3,13 @@ Functions that calculate the gravitational potential and its first and second
 derivatives for the tesseroid.
 
 The gravity gradients can be calculated using the general formula of
-Grombein et al. (2010).
-The integrals are solved using the Gauss-Legendre Quadrature rule
-(Asgharzadeh et al., 2007).
+Grombein et al. (2010). The integrals are solved using the Gauss-Legendre
+Quadrature rule (Asgharzadeh et al., 2007).
 
 The derivatives of the potential are made with respect to the local coordinate
 system x->North, y->East, z->Up (away from center of the Earth).
 
-To maintain the standard convention, only for component gz the z axis is
+To maintain the standard convention, ONLY for component gz the z axis is
 inverted, so a positive density results in positive gz.
 
 Example
@@ -19,9 +18,8 @@ Example
 To calculate the gzz component due to a tesseroid on a regular grid:
 
     #include <stdio.h>
-    #include "glq.h"r
     #include "constants.h"
-    #include "grav_tess.h"
+    #include "libtesseroid.h"
 
     int main()
     {
@@ -51,6 +49,44 @@ To calculate the gzz component due to a tesseroid on a regular grid:
         return 0;
     }
 
+Gauss-Legendre Quadrature example
+---------------------------------
+
+To integrate the cossine function from 0 to 90 degrees:
+
+    #include <stdio.h>
+    #include <stdlib.h>
+    #include <math.h>
+    #include "libtesseroid.h"
+
+    int main(){
+        // Create a new glq structure
+        GLQ *glq;
+        double result = 0, a = 0, b = 0.5*3.14;
+        int i;
+
+        glq = glq_new(5, a, b);
+
+        if(glq == NULL){
+            printf("malloc error");
+            return 1;
+        }
+
+        // Calculate the integral
+        for(i = 0; i < glq->order; i++)
+            result += glq->weights[i]*cos(glq->nodes[i]);
+
+        // Need to multiply by a scale factor of the integration limits
+        result *= 0.5*(b - a);
+
+        printf("Integral of cossine from 0 to 90 degrees = %lf\n", result);
+
+        // Free allocated memory
+        glq_free(glq);
+
+        return 0;
+    }
+
 References
 ----------
 
@@ -65,437 +101,97 @@ KIT Scientific Reports 7547, ISBN 978-3-86644-510-9, KIT Scientific Publishing,
 Karlsruhe, Germany.
 */
 
-#ifndef _TESSEROIDS_GRAV_TESS_H_
-#define _TESSEROIDS_GRAV_TESS_H_
+#ifndef _TESSEROIDS_LIBTESSEROID_H_
+#define _TESSEROIDS_LIBTESSEROID_H_
 
 
 /* Needed for definition of TESSEROID */
 #include "geometry.h"
-/* Needed for definition of GLQ */
-#include "glq.h"
+
+/* Store the nodes and weights needed for a GLQ integration */
+typedef struct glq_struct
+{
+    int order; /**< order of the quadrature, ie number of nodes */
+    double *nodes; /**< abscissas or discretization points of the quadrature */
+    double *weights; /**< weighting coefficients of the quadrature */
+    double *nodes_unscaled; /**< nodes in [-1,1] interval */
+} GLQ;
+/* Make a new GLQ structure and set all the parameters needed
+WARNING: Don't forget to free the memory malloced by this function using
+glq_free()!
+lower and upper are the integration limits. */
+extern GLQ * glq_new(int order, double lower, double upper);
+/* Free the memory allocated to make a GLQ structure */
+extern void glq_free(GLQ *glq);
+/* Put the GLQ nodes to the integration limits IN PLACE.
+Return code:
+    - 0: if everything went OK
+    - 1: if invalid order
+    - 2: if NULL pointer for nodes or nodes_unscaled */
+extern int glq_set_limits(double lower, double upper, GLQ *glq);
+/* Calculates the GLQ nodes using glq_next_root.
+Nodes will be in the [-1,1] interval. To convert them to the integration limits
+use glq_scale_nodes
+Return code:
+    - 0: if everything went OK
+    - 1: if invalid order
+    - 2: if NULL pointer for nodes
+    - 3: if number of maximum iterations was reached when calculating the root.
+         This usually means that the desired accuracy was not achieved. Default
+         desired accuracy is GLQ_MAXERROR. Default maximum iterations is
+         GLQ_MAXIT. */
+extern int glq_nodes(int order, double *nodes);
+/* Calculate the next Legendre polynomial root given the previous root found.
+Uses the root-finder algorithm of:
+  Barrera-Figueroa, V., Sosa-Pedroza, J. and López-Bonilla, J., 2006,
+  "Multiple root finder algorithm for Legendre and Chebyshev polynomials via
+  Newton's method", 2006, Annales mathematicae et Informaticae, 33, pp 3-13
+Return code:
+    - 0: if everything went OK
+    - 1: if order is not valid
+    - 2: if root_index is not valid (negative)
+    - 3: if number of maximum iterations was reached when calculating the root.
+         This usually means that the desired accuracy was not achieved. Default
+         desired accuracy is GLQ_MAXERROR. Default maximum iterations is
+         GLQ_MAXIT. */
+extern int glq_next_root(double initial, int root_index, int order,
+                         double *roots);
+/* Calculates the weighting coefficients for the GLQ integration.
+Return code:
+    - 0: if everything went OK
+    - 1: if order is not valid
+    - 2: if nodes is a NULL pointer
+    - 3: if weights is a NULL pointer */
+extern int glq_weights(int order, double *nodes, double *weights);
 
 
-/** Calculates the field of a tesseroid model at a given point.
-
-Uses a function pointer to call one of the apropriate field calculating
-functions:
-    - tess_gx()
-    - tess_gy()
-    - tess_gz()
-    - tess_gxx()
-    - tess_gxy()
-    - tess_gxz()
-    - tess_gyy()
-    - tess_gyz()
-    - tess_gzz()
-
-To pass a function pointer to a function use something like:
-
-\verbatim
-calc_tess_model(my_model, 10, 0, 10, 1, glqlon, glqlat, glqr, &tess_gx);
-\endverbatim
-
-This would calculate the gx effect of the model my_model with 10 tesseroids
-at lon=0 lat=10 r=1.
-
-Will re-use the same GLQ structures, and therefore the <b>same order, for all
-the tesseroids</b>.
-
-@param model TESSEROID array defining the model
-@param size number of tesseroids in the model
-@param lonp longitude of the computation point P
-@param latp latitude of the computation point P
-@param rp radial coordinate of the computation point P
-@param glq_lon pointer to GLQ structure used for the longitudinal integration
-@param glq_lat pointer to GLQ structure used for the latitudinal integration
-@param glq_r pointer to GLQ structure used for the radial integration
-@param field pointer to one of the field calculating functions
-
-@return the sum of the fields of all the tesseroids in the model
-*/
 extern double calc_tess_model(TESSEROID *model, int size, double lonp,
     double latp, double rp, GLQ *glq_lon, GLQ *glq_lat, GLQ *glq_r,
     double (*field)(TESSEROID, double, double, double, GLQ, GLQ, GLQ));
-
-
-/** Adaptatively calculate the field of a tesseroid model at a given point by
-splitting the tesseroids if necessary to maintain GLQ stability.
-
-See calc_tess_model() for more details.
-
-Will re-use the same GLQ structures, and therefore the <b>same order, for all
-the tesseroids</b>.
-
-@param model TESSEROID array defining the model
-@param size number of tesseroids in the model
-@param lonp longitude of the computation point P
-@param latp latitude of the computation point P
-@param rp radial coordinate of the computation point P
-@param glq_lon pointer to GLQ structure used for the longitudinal integration
-@param glq_lat pointer to GLQ structure used for the latitudinal integration
-@param glq_r pointer to GLQ structure used for the radial integration
-@param field pointer to one of the field calculating functions
-@param ratio distance-to-size ratio for doing adaptative resizing
-
-@return the sum of the fields of all the tesseroids in the model
-*/
+/* Adaptatively calculate the field of a tesseroid model at a given point by
+splitting the tesseroids if necessary to maintain GLQ stability. */
 extern double calc_tess_model_adapt(TESSEROID *model, int size, double lonp,
     double latp, double rp, GLQ *glq_lon, GLQ *glq_lat, GLQ *glq_r,
     double (*field)(TESSEROID, double, double, double, GLQ, GLQ, GLQ),
     double ratio);
-
-
-/** Calculates potential caused by a tesseroid.
-
-\f[
-V(r_p,\phi_p,\lambda_p) = G \rho \displaystyle\int_{\lambda_1}^{\lambda_2}
-    \displaystyle\int_{\phi_1}^{\phi_2} \displaystyle\int_{r_1}^{r_2}
-    \frac{1}{\ell}\kappa \ d r' d \phi' d \lambda'
-\f]
-
-<b>Input and output values in SI units and degrees</b>!
-
-Use function glq_new() to create the GLQ parameters required. The integration
-limits should be set to:
-    - glq_lon: lower = tess.w and upper = tess.e  (in degrees)
-    - glq_lat: lower = tess.s and upper = tess.n  (in degrees)
-    - glq_r: lower = tess.r1 and upper = tess.r2
-
-@param tess data structure describing the tesseroid
-@param lonp longitude of the computation point P
-@param latp latitude of the computation point P
-@param rp radial coordinate of the computation point P
-@param glq_lon GLQ structure with the nodes, weights and integration limits set
-    for the longitudinal integration
-@param glq_lat GLQ structure with the nodes, weights and integration limits set
-    for the latitudinal integration
-@param glq_r GLQ structure with the nodes, weights and integration limits set
-    for the radial integration
-
-@return field calculated at P
-*/
 extern double tess_pot(TESSEROID tess, double lonp, double latp, double rp,
                        GLQ glq_lon, GLQ glq_lat, GLQ glq_r);
-
-
-/** Calculates gx caused by a tesseroid (Grombein et al., 2010).
-
-\f[
-g_x(r_p,\phi_p,\lambda_p) = G \rho \displaystyle\int_{\lambda_1}^{\lambda_2}
-    \displaystyle\int_{\phi_1}^{\phi_2} \displaystyle\int_{r_1}^{r_2}
-    \frac{r'K_{\phi}}{\ell^3}\kappa \ d r' d \phi' d \lambda'
-\f]
-
-The derivatives of the potential are made with respect to the local coordinate
-system <b>x->North, y->East, z->out</b>
-
-<b>Input values in SI units and <b>degrees</b> and returns values in mGal!</b>
-
-Use function glq_new() to create the GLQ parameters required. The integration
-limits should be set to:
-    - glq_lon: lower = tess.w and upper = tess.e  (in degrees)
-    - glq_lat: lower = tess.s and upper = tess.n  (in degrees)
-    - glq_r: lower = tess.r1 and upper = tess.r2
-
-@param tess data structure describing the tesseroid
-@param lonp longitude of the computation point P
-@param latp latitude of the computation point P
-@param rp radial coordinate of the computation point P
-@param glq_lon GLQ structure with the nodes, weights and integration limits set
-    for the longitudinal integration
-@param glq_lat GLQ structure with the nodes, weights and integration limits set
-    for the latitudinal integration
-@param glq_r GLQ structure with the nodes, weights and integration limits set
-    for the radial integration
-
-@return field calculated at P
-*/
 extern double tess_gx(TESSEROID tess, double lonp, double latp, double rp,
                       GLQ glq_lon, GLQ glq_lat, GLQ glq_r);
-
-/** Calculates gy caused by a tesseroid (Grombein et al., 2010).
-
-\f[
-g_y(r_p,\phi_p,\lambda_p) = G \rho \displaystyle\int_{\lambda_1}^{\lambda_2}
-    \displaystyle\int_{\phi_1}^{\phi_2} \displaystyle\int_{r_1}^{r_2}
-    \frac{r'\cos\phi'\sin(\lambda'-\lambda)}{\ell^3}\kappa
-    \ d r' d \phi' d \lambda'
-\f]
-
-The derivatives of the potential are made with respect to the local coordinate
-system <b>x->North, y->East, z->out</b>
-
-<b>Input values in SI units and <b>degrees</b> and returns values in mGal!</b>
-
-Use function glq_new() to create the GLQ parameters required. The integration
-limits should be set to:
-    - glq_lon: lower = tess.w and upper = tess.e  (in degrees)
-    - glq_lat: lower = tess.s and upper = tess.n  (in degrees)
-    - glq_r: lower = tess.r1 and upper = tess.r2
-
-@param tess data structure describing the tesseroid
-@param lonp longitude of the computation point P
-@param latp latitude of the computation point P
-@param rp radial coordinate of the computation point P
-@param glq_lon GLQ structure with the nodes, weights and integration limits set
-    for the longitudinal integration
-@param glq_lat GLQ structure with the nodes, weights and integration limits set
-    for the latitudinal integration
-@param glq_r GLQ structure with the nodes, weights and integration limits set
-    for the radial integration
-
-@return field calculated at P
-*/
 extern double tess_gy(TESSEROID tess, double lonp, double latp, double rp,
                       GLQ glq_lon, GLQ glq_lat, GLQ glq_r);
-
-/** Calculates gz caused by a tesseroid (Grombein et al., 2010).
-
-\f[
-g_z(r_p,\phi_p,\lambda_p) = G \rho \displaystyle\int_{\lambda_1}^{\lambda_2}
-    \displaystyle\int_{\phi_1}^{\phi_2} \displaystyle\int_{r_1}^{r_2}
-    \frac{r'\cos\psi - r_p}{\ell^3}\kappa \ d r' d \phi' d \lambda'
-\f]
-
-The derivatives of the potential are made with respect to the local coordinate
-system <b>x->North, y->East, z->out</b>
-
-<b>Input values in SI units and <b>degrees</b> and returns values in mGal!</b>
-
-Use function glq_new() to create the GLQ parameters required. The integration
-limits should be set to:
-    - glq_lon: lower = tess.w and upper = tess.e  (in degrees)
-    - glq_lat: lower = tess.s and upper = tess.n  (in degrees)
-    - glq_r: lower = tess.r1 and upper = tess.r2
-
-@param tess data structure describing the tesseroid
-@param lonp longitude of the computation point P
-@param latp latitude of the computation point P
-@param rp radial coordinate of the computation point P
-@param glq_lon GLQ structure with the nodes, weights and integration limits set
-    for the longitudinal integration
-@param glq_lat GLQ structure with the nodes, weights and integration limits set
-    for the latitudinal integration
-@param glq_r GLQ structure with the nodes, weights and integration limits set
-    for the radial integration
-
-@return field calculated at P
-*/
 extern double tess_gz(TESSEROID tess, double lonp, double latp, double rp,
                       GLQ glq_lon, GLQ glq_lat, GLQ glq_r);
-
-/** Calculates gxx caused by a tesseroid (Grombein et al., 2010).
-
-\f[
-g_{xx}(r_p,\phi_p,\lambda_p) = G \rho \displaystyle\int_{\lambda_1}^{\lambda_2}
-    \displaystyle\int_{\phi_1}^{\phi_2} \displaystyle\int_{r_1}^{r_2}
-    \frac{3(r' K_{\phi})^2 - \ell^2}{\ell^5}\kappa \ d r' d \phi' d \lambda'
-\f]
-
-The derivatives of the potential are made with respect to the local coordinate
-system <b>x->North, y->East, z->out</b>
-
-<b>Input values in SI units and <b>degrees</b> and returns values in Eotvos!</b>
-
-Use function glq_new() to create the GLQ parameters required. The integration
-limits should be set to:
-    - glq_lon: lower = tess.w and upper = tess.e  (in degrees)
-    - glq_lat: lower = tess.s and upper = tess.n  (in degrees)
-    - glq_r: lower = tess.r1 and upper = tess.r2
-
-@param tess data structure describing the tesseroid
-@param lonp longitude of the computation point P
-@param latp latitude of the computation point P
-@param rp radial coordinate of the computation point P
-@param glq_lon GLQ structure with the nodes, weights and integration limits set
-    for the longitudinal integration
-@param glq_lat GLQ structure with the nodes, weights and integration limits set
-    for the latitudinal integration
-@param glq_r GLQ structure with the nodes, weights and integration limits set
-    for the radial integration
-
-@return field calculated at P
-*/
 extern double tess_gxx(TESSEROID tess, double lonp, double latp, double rp,
                       GLQ glq_lon, GLQ glq_lat, GLQ glq_r);
-
-/** Calculates gxy caused by a tesseroid (Grombein et al., 2010).
-
-\f[
-g_{xy}(r_p,\phi_p,\lambda_p) = G \rho \displaystyle\int_{\lambda_1}^{\lambda_2}
-    \displaystyle\int_{\phi_1}^{\phi_2} \displaystyle\int_{r_1}^{r_2}
-    \frac{3{r'}^2 K_{\phi}\cos\phi'\sin(\lambda' - \lambda_p)}{\ell^5}
-    \kappa \ d r' d \phi' d \lambda'
-\f]
-
-The derivatives of the potential are made with respect to the local coordinate
-system <b>x->North, y->East, z->out</b>
-
-<b>Input values in SI units and <b>degrees</b> and returns values in Eotvos!</b>
-
-Use function glq_new() to create the GLQ parameters required. The integration
-limits should be set to:
-    - glq_lon: lower = tess.w and upper = tess.e  (in degrees)
-    - glq_lat: lower = tess.s and upper = tess.n  (in degrees)
-    - glq_r: lower = tess.r1 and upper = tess.r2
-
-@param tess data structure describing the tesseroid
-@param lonp longitude of the computation point P
-@param latp latitude of the computation point P
-@param rp radial coordinate of the computation point P
-@param glq_lon GLQ structure with the nodes, weights and integration limits set
-    for the longitudinal integration
-@param glq_lat GLQ structure with the nodes, weights and integration limits set
-    for the latitudinal integration
-@param glq_r GLQ structure with the nodes, weights and integration limits set
-    for the radial integration
-
-@return field calculated at P
-*/
 extern double tess_gxy(TESSEROID tess, double lonp, double latp, double rp,
                       GLQ glq_lon, GLQ glq_lat, GLQ glq_r);
-
-/** Calculates gxz caused by a tesseroid (Grombein et al., 2010).
-
-\f[
-g_{xz}(r_p,\phi_p,\lambda_p) = G \rho \displaystyle\int_{\lambda_1}^{\lambda_2}
-    \displaystyle\int_{\phi_1}^{\phi_2} \displaystyle\int_{r_1}^{r_2}
-    \frac{3 r' K_{\phi}(r' \cos\psi - r_p)}{\ell^5}\kappa
-    \ d r' d \phi' d \lambda'
-\f]
-
-The derivatives of the potential are made with respect to the local coordinate
-system <b>x->North, y->East, z->out</b>
-
-<b>Input values in SI units and <b>degrees</b> and returns values in Eotvos!</b>
-
-Use function glq_new() to create the GLQ parameters required. The integration
-limits should be set to:
-    - glq_lon: lower = tess.w and upper = tess.e  (in degrees)
-    - glq_lat: lower = tess.s and upper = tess.n  (in degrees)
-    - glq_r: lower = tess.r1 and upper = tess.r2
-
-@param tess data structure describing the tesseroid
-@param lonp longitude of the computation point P
-@param latp latitude of the computation point P
-@param rp radial coordinate of the computation point P
-@param glq_lon GLQ structure with the nodes, weights and integration limits set
-    for the longitudinal integration
-@param glq_lat GLQ structure with the nodes, weights and integration limits set
-    for the latitudinal integration
-@param glq_r GLQ structure with the nodes, weights and integration limits set
-    for the radial integration
-
-@return field calculated at P
-*/
 extern double tess_gxz(TESSEROID tess, double lonp, double latp, double rp,
                       GLQ glq_lon, GLQ glq_lat, GLQ glq_r);
-
-/** Calculates gyy caused by a tesseroid (Grombein et al., 2010).
-
-\f[
-g_{yy}(r_p,\phi_p,\lambda_p) = G \rho \displaystyle\int_{\lambda_1}^{\lambda_2}
-    \displaystyle\int_{\phi_1}^{\phi_2} \displaystyle\int_{r_1}^{r_2}
-    \frac{3(r'\cos\phi'\sin(\lambda' - \lambda_p))^2 - \ell^2}{\ell^5}
-    \kappa \ d r' d \phi' d \lambda'
-\f]
-
-The derivatives of the potential are made with respect to the local coordinate
-system <b>x->North, y->East, z->out</b>
-
-<b>Input values in SI units and <b>degrees</b> and returns values in Eotvos!</b>
-
-Use function glq_new() to create the GLQ parameters required. The integration
-limits should be set to:
-    - glq_lon: lower = tess.w and upper = tess.e  (in degrees)
-    - glq_lat: lower = tess.s and upper = tess.n  (in degrees)
-    - glq_r: lower = tess.r1 and upper = tess.r2
-
-@param tess data structure describing the tesseroid
-@param lonp longitude of the computation point P
-@param latp latitude of the computation point P
-@param rp radial coordinate of the computation point P
-@param glq_lon GLQ structure with the nodes, weights and integration limits set
-    for the longitudinal integration
-@param glq_lat GLQ structure with the nodes, weights and integration limits set
-    for the latitudinal integration
-@param glq_r GLQ structure with the nodes, weights and integration limits set
-    for the radial integration
-
-@return field calculated at P
-*/
 extern double tess_gyy(TESSEROID tess, double lonp, double latp, double rp,
                       GLQ glq_lon, GLQ glq_lat, GLQ glq_r);
-
-/** Calculates gyz caused by a tesseroid (Grombein et al., 2010).
-
-\f[
-g_{yz}(r_p,\phi_p,\lambda_p) = G \rho \displaystyle\int_{\lambda_1}^{\lambda_2}
-    \displaystyle\int_{\phi_1}^{\phi_2} \displaystyle\int_{r_1}^{r_2}
-    \frac{3 r' \cos\phi' \sin(\lambda' - \lambda_p)(r'\cos\psi - r_p)}{\ell^5}
-    \kappa \ d r' d \phi' d \lambda'
-\f]
-
-The derivatives of the potential are made with respect to the local coordinate
-system <b>x->North, y->East, z->out</b>
-
-<b>Input values in SI units and <b>degrees</b> and returns values in Eotvos!</b>
-
-Use function glq_new() to create the GLQ parameters required. The integration
-limits should be set to:
-    - glq_lon: lower = tess.w and upper = tess.e  (in degrees)
-    - glq_lat: lower = tess.s and upper = tess.n  (in degrees)
-    - glq_r: lower = tess.r1 and upper = tess.r2
-
-@param tess data structure describing the tesseroid
-@param lonp longitude of the computation point P
-@param latp latitude of the computation point P
-@param rp radial coordinate of the computation point P
-@param glq_lon GLQ structure with the nodes, weights and integration limits set
-    for the longitudinal integration
-@param glq_lat GLQ structure with the nodes, weights and integration limits set
-    for the latitudinal integration
-@param glq_r GLQ structure with the nodes, weights and integration limits set
-    for the radial integration
-
-@return field calculated at P
-*/
 extern double tess_gyz(TESSEROID tess, double lonp, double latp, double rp,
                       GLQ glq_lon, GLQ glq_lat, GLQ glq_r);
-
-/** Calculates gzz caused by a tesseroid (Grombein et al., 2010).
-
-\f[
-g_{zz}(r_p,\phi_p,\lambda_p) = G \rho \displaystyle\int_{\lambda_1}^{\lambda_2}
-    \displaystyle\int_{\phi_1}^{\phi_2} \displaystyle\int_{r_1}^{r_2}
-    \frac{3(r'\cos\psi-r_p)^2 - \ell^2}{\ell^5}\kappa \ d r' d \phi' d \lambda'
-\f]
-
-The derivatives of the potential are made with respect to the local coordinate
-system <b>x->North, y->East, z->out</b>
-
-<b>Input values in SI units and <b>degrees</b> and returns values in Eotvos!</b>
-
-Use function glq_new() to create the GLQ parameters required. The integration
-limits should be set to:
-    - glq_lon: lower = tess.w and upper = tess.e  (in degrees)
-    - glq_lat: lower = tess.s and upper = tess.n  (in degrees)
-    - glq_r: lower = tess.r1 and upper = tess.r2
-
-@param tess data structure describing the tesseroid
-@param lonp longitude of the computation point P
-@param latp latitude of the computation point P
-@param rp radial coordinate of the computation point P
-@param glq_lon GLQ structure with the nodes, weights and integration limits set
-    for the longitudinal integration
-@param glq_lat GLQ structure with the nodes, weights and integration limits set
-    for the latitudinal integration
-@param glq_r GLQ structure with the nodes, weights and integration limits set
-    for the radial integration
-
-@return field calculated at P
-*/
 extern double tess_gzz(TESSEROID tess, double lonp, double latp, double rp,
                       GLQ glq_lon, GLQ glq_lat, GLQ glq_r);
-
 #endif
