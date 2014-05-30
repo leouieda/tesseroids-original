@@ -17,7 +17,7 @@ References
 #include <math.h>
 #include "geometry.h"
 #include "constants.h"
-#include "grav_prism.h"
+#include "libprism.h"
 
 
 /* Calculates the potential cause by a prism. */

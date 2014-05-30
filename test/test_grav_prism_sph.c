@@ -4,10 +4,10 @@ Unit tests for grav_prism.c functions.
 
 #include <stdio.h>
 #include <math.h>
-#include "../src/lib/grav_prism_sph.h"
-#include "../src/lib/grav_prism.h"
-#include "../src/lib/geometry.h"
-#include "../src/lib/constants.h"
+#include "../src/grav_prism_sph.h"
+#include "../src/libprism.h"
+#include "../src/geometry.h"
+#include "../src/constants.h"
 
 
 char msg[1000];

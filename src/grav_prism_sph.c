@@ -15,7 +15,7 @@ References
 #include "geometry.h"
 #include "constants.h"
 #include "grav_prism_sph.h"
-#include "grav_prism.h"
+#include "libprism.h"
 
 
 /* Transform spherical coordinates to local Cartesian coordinates of the prism*/
@@ -42,7 +42,7 @@ int global2local(double lon, double lat, double r, PRISM prism, double *x,
     *y = -X*sinb - Y*cosb;
     /* -1 because Nagy et al. (2000) use z->down */
     *z = -1*(-X*sina*cosb + Y*sina*sinb + Z*cosa);
-    
+
     return 0;
 }
 
@@ -51,7 +51,7 @@ int global2local(double lon, double lat, double r, PRISM prism, double *x,
 system of the computation point. */
 int g_prism2point(double *atprism, PRISM prism, double lon, double lat,
                   double r, double *atpoint)
-{    
+{
     #define POS(x, y, cols) (((x)*(cols))+(y))
 
     register int i, k;
@@ -59,7 +59,7 @@ int g_prism2point(double *atprism, PRISM prism, double lon, double lat,
 
     /* degrees to radians */
     d2r = PI/180.;
-    
+
     cosbeta = cos(d2r*(prism.lon - lon));
     sinbeta = sin(d2r*(prism.lon - lon));
     cosphi = cos(d2r*lat);
@@ -104,7 +104,7 @@ int ggt_prism2point(double *atprism, PRISM prism, double lon, double lat,
 
     /* degrees to radians */
     d2r = PI/180.;
-    
+
     cosbeta = cos(d2r*(prism.lon - lon));
     sinbeta = sin(d2r*(prism.lon - lon));
     cosphi = cos(d2r*lat);
@@ -148,7 +148,7 @@ int ggt_prism2point(double *atprism, PRISM prism, double lon, double lat,
             }
         }
     }
-    
+
     #undef POS
     return 0;
 }

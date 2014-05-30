@@ -23,7 +23,7 @@ Karlsruhe, Germany.
 #include <math.h>
 #include "geometry.h"
 #include "constants.h"
-#include "grav_sphere.h"
+#include "libsphere.h"
 
 
 /* Calculates the potential caused by a sphere */

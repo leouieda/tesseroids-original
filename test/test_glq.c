@@ -6,8 +6,8 @@ Unit tests for GLQ functions.
 #include <stdlib.h>
 #include <math.h>
 #include "minunit.h"
-#include "../src/lib/glq.h"
-#include "../src/lib/constants.h"
+#include "../src/glq.h"
+#include "../src/constants.h"
 
 /* Test data taken from:
     http://mathworld.wolfram.com/Legendre-GaussQuadrature.html */

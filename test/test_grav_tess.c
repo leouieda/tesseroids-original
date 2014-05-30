@@ -1,15 +1,15 @@
 /*
-Unit tests for grav_tess.c functions.
+Unit tests for libtesseroid.c functions.
 */
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-#include "../src/lib/grav_sphere.h"
-#include "../src/lib/grav_tess.h"
-#include "../src/lib/glq.h"
-#include "../src/lib/geometry.h"
-#include "../src/lib/constants.h"
+#include "../src/libsphere.h"
+#include "../src/libtesseroid.h"
+#include "../src/glq.h"
+#include "../src/geometry.h"
+#include "../src/constants.h"
 
 
 char msg[1000];

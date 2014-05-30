@@ -18,7 +18,7 @@ Karlsruhe, Germany.
 #include "geometry.h"
 #include "glq.h"
 #include "constants.h"
-#include "grav_tess.h"
+#include "libtesseroid.h"
 
 
 /* Calculates the field of a tesseroid model at a given point. */

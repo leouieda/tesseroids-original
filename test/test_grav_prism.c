@@ -4,10 +4,10 @@ Unit tests for grav_prism.c functions.
 
 #include <stdio.h>
 #include <math.h>
-#include "../src/lib/grav_sphere.h"
-#include "../src/lib/grav_prism.h"
-#include "../src/lib/geometry.h"
-#include "../src/lib/constants.h"
+#include "../src/libsphere.h"
+#include "../src/libprism.h"
+#include "../src/geometry.h"
+#include "../src/constants.h"
 
 
 char msg[1000];
@@ -465,7 +465,7 @@ static char * test_prism_tensor_trace()
 
 int grav_prism_run_all()
 {
-    int failed;
+    int failed = 0;
     failed += mu_run_test(test_pot_bellow,
                 "prism_pot results equal above and bellow the prism");
     failed += mu_run_test(test_gx_bellow,

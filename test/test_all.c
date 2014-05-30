@@ -4,7 +4,7 @@ Run all unit tests. This is compiled into a single executable (tesstest).
 
 #include <stdio.h>
 #include <time.h>
-#include "../src/lib/logger.h"
+#include "../src/logger.h"
 #include "minunit.h"
 #include "test_glq.c"
 #include "test_geometry.c"
