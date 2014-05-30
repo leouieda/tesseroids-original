@@ -9,18 +9,16 @@ All values are in SI units!
 #ifndef _TESSEROIDS_CONSTANTS_H_
 #define _TESSEROIDS_CONSTANTS_H_
 
-/* Mean Earth radius [\f$ m \f$] */
+/* Mean Earth radius meters */
 extern const double MEAN_EARTH_RADIUS;
 
-/* The gravitational constant [\f$ m^3*kg^{-1}*s^{-1} \f$] */
+/* The gravitational constant m^3*kg^-1*s^-1 */
 extern const double G;
 
-/* Conversion factor from SI units to Eotvos
-[\f$ \frac{1}{s^2} = 10^9\ Eotvos \f$] */
+/* Conversion factor from SI units to Eotvos s^-2 = 10^9\ Eotvos */
 extern const double SI2EOTVOS;
 
-/* Conversion factor from SI units to mGal
-[\f$ 1 \frac{m}{s^2} = 10^5\ mGal \f$] */
+/* Conversion factor from SI units to mGal 1 m*s^-2 = 10^5 mGal */
 extern const double SI2MGAL;
 
 /* Pi */
