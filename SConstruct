@@ -68,7 +68,6 @@ for f in fields:
 # Build prismpots, prismgs, and prismggts
 env.Program('bin/prismpots', source=Split("""
     src/prismpots.c
-    src/grav_prism_sph.c
     src/libprism.c
     src/logger.c
     src/version.c
@@ -78,7 +77,6 @@ env.Program('bin/prismpots', source=Split("""
     """))
 env.Program('bin/prismgs', source=Split("""
     src/prismgs.c
-    src/grav_prism_sph.c
     src/libprism.c
     src/logger.c
     src/version.c
@@ -88,7 +86,6 @@ env.Program('bin/prismgs', source=Split("""
     """))
 env.Program('bin/prismggts', source=Split("""
     src/prismggts.c
-    src/grav_prism_sph.c
     src/libprism.c
     src/logger.c
     src/version.c
@@ -157,7 +154,6 @@ sources = [
     'src/constants.c',
     'src/geometry.c',
     'src/glq.c',
-    'src/grav_prism_sph.c',
     'src/libprism.c',
     'src/libsphere.c',
     'src/libtesseroid.c',
