@@ -12,6 +12,17 @@ Defines the TESSEROID, SPHERE, and PRISM structures.
 #include "geometry.h"
 
 
+void copy_tess(TESSEROID src, TESSEROID *dest)
+{
+    dest->w = src.w;
+    dest->e = src.e;
+    dest->s = src.s;
+    dest->n = src.n;
+    dest->r1 = src.r1;
+    dest->r2 = src.r2;
+    dest->density = src.density;
+}
+
 void split_tess(TESSEROID tess, TESSEROID *split)
 {
     double dlon = 0.5*(tess.e - tess.w),

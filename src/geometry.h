@@ -43,7 +43,8 @@ typedef struct sphere_struct {
     double rc; /* radial coordinate of the center of the sphere in SI units */
 } SPHERE;
 
-
+/* Copy the src tesseroid into dest */
+extern void copy_tess(TESSEROID src, TESSEROID *dest);
 /* Split a tesseroid into 8. */
 extern void split_tess(TESSEROID tess, TESSEROID *split);
 /* Calculate the total mass of a tesseroid model. Returns he calculated mass.
