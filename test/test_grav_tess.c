@@ -5,13 +5,14 @@ Unit tests for libtesseroid.c functions.
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-#include "../src/libsphere.h"
-#include "../src/libtesseroid.h"
-#include "../src/geometry.h"
-#include "../src/constants.h"
+#include "libsphere.h"
+#include "libtesseroid.h"
+#include "geometry.h"
+#include "constants.h"
 
 
 char msg[1000];
+double d2r = 180./PI;
 
 /* Test data taken from:
     http://mathworld.wolfram.com/Legendre-GaussQuadrature.html */
@@ -505,8 +506,9 @@ static char * test_tess2sphere_pot()
     tess2sphere(tess, &sphere);
     for(dist=1000000; dist <= 2000000; dist += 1000)
     {
-        restess = tess_pot(tess,0,40,radius+dist,*glqlon,*glqlat,*glqr);
-        ressphere = sphere_pot(sphere,0,40,radius+dist);
+        restess = tess_pot(tess, 0, sin(d2r*40), cos(d2r*40), radius + dist,
+                           *glqlon, *glqlat, *glqr);
+        ressphere = sphere_pot(sphere, 0, 40, radius + dist);
         sprintf(msg, "(distance %g m) tess = %.5f  sphere = %.5f", dist,
                 restess, ressphere);
         mu_assert_almost_equals(restess, ressphere, 0.01, msg);
@@ -549,8 +551,9 @@ static char * test_tess2sphere_gx()
 
     for(dist=1000000; dist <= 2000000; dist += 1000)
     {
-        restess = tess_gx(tess,0,40,radius+dist,*glqlon,*glqlat,*glqr);
-        ressphere = sphere_gx(sphere,0,40,radius+dist);
+        restess = tess_gx(tess, 0, sin(d2r*40), cos(d2r*40), radius + dist,
+                          *glqlon, *glqlat, *glqr);
+        ressphere = sphere_gx(sphere, 0, 40, radius + dist);
         sprintf(msg, "(distance %g m) tess = %.5f  sphere = %.5f", dist,
                 restess, ressphere);
         mu_assert_almost_equals(restess, ressphere, 0.1, msg);
@@ -594,8 +597,9 @@ static char * test_tess2sphere_gy()
 
     for(dist=1000000; dist <= 2000000; dist += 1000)
     {
-        restess = tess_gy(tess,5,45,radius+dist,*glqlon,*glqlat,*glqr);
-        ressphere = sphere_gy(sphere,5,45,radius+dist);
+        restess = tess_gy(tess, 5, sin(d2r*45), cos(d2r*45), radius + dist,
+                          *glqlon, *glqlat, *glqr);
+        ressphere = sphere_gy(sphere, 5, 45, radius + dist);
 
         sprintf(msg, "(distance %g m) tess = %.5f  sphere = %.5f", dist,
                 restess, ressphere);
@@ -640,7 +644,7 @@ static char * test_tess2sphere_gz()
 
     for(dist=1500000; dist <= 2000000; dist += 1000)
     {
-        restess = -tess_gz(tess,0,45,radius+dist,*glqlon,*glqlat,*glqr);
+        restess = -tess_gz(tess, 0, sin(d2r*45,radius+dist,*glqlon,*glqlat,*glqr);
         ressphere = sphere_gz(sphere,0,45,radius+dist);
 
         sprintf(msg, "(distance %g m) tess = %.5f  sphere = %.5f", dist,
